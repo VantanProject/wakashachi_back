@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('menu_pages', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("menu_id");
-            $table->integer("count");
-            $table->integer("raw");
-            $table->integer("column");
+            $table->unsignedInteger("count");
+            $table->unsignedInteger("raw");
+            $table->unsignedInteger("column");
             $table->timestamps();
         });
     }
