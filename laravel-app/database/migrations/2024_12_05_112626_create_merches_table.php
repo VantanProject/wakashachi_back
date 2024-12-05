@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('merches', function (Blueprint $table) {
             $table->id();
-            $table->string('img_url');
+            $table->text('img_url');
             $table->integer('price');
-            $table->unsignedBigInteger('company_id');
+            $table->unsignedInteger('company_id');
             $table->timestamps();
         });
     }
