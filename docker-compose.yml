@@ -1,0 +1,7 @@
+services:
+  laravel:
+    build: ./
+    volumes:
+      - ./laravel-app:/laravel-app
+    ports:
+      - 8004:8000
