@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("merch_id");
             $table->unsignedBigInteger("menu_page_id");
-            $table->integer("width");
-            $table->integer("height");
-            $table->integer("top");
-            $table->integer("left");
+            $table->unsignedInteger("width");
+            $table->unsignedInteger()("height");
+            $table->unsignedInteger("top");
+            $table->unsignedInteger("left");
             $table->timestamps();
         });
     }
