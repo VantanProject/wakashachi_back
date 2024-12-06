@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger("merch_id");
             $table->unsignedBigInteger("menu_page_id");
             $table->unsignedInteger("width");
-            $table->unsignedInteger()("height");
+            $table->unsignedInteger("height");
             $table->unsignedInteger("top");
             $table->unsignedInteger("left");
             $table->timestamps();
