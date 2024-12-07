@@ -8,7 +8,7 @@ class MerchItem extends Model
 {
     protected $fillable = [
         'merch_id',
-        'lang_id',
+        'language_id',
         'name',
         'detail',
     ];

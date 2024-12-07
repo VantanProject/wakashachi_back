@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('merch_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('merch_id');
-            $table->unsignedInteger('lang_id');
+            $table->unsignedBigInteger('merch_id');
+            $table->unsignedBigInteger('language_id');
             $table->string('name');
             $table->text('detail');
             $table->timestamps();
