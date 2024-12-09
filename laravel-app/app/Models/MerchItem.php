@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class MerchItem extends Model
 {
@@ -12,4 +13,9 @@ class MerchItem extends Model
         'name',
         'detail',
     ];
+
+    public function merch(): BelongsTo
+    {
+        return $this->belongsTo(Merch::class);
+    }
 }
