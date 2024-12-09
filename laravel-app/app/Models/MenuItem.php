@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class MenuItem extends Model
 {
@@ -14,8 +13,8 @@ class MenuItem extends Model
     {
         return $this->belongsTo(MenuPage::class);
     }
-    public function merche(): BelongsTo
+    public function merch(): BelongsTo
     {
-        return $this->belongsTo(Merche::class);
+        return $this->belongsTo(Merch::class);
     }
 }
