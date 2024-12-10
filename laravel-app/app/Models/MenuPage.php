@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class MenuPage extends Model
 {
-    protected $fillable = ["menu_id","count","raw","column"];
+    protected $fillable = ["menu_id","count"];
 
     public function menu(): BelongsTo
     {
