@@ -17,22 +17,22 @@ class AllSeeder extends Seeder
      */
     public function run(): void
     {
-        $company = Company::create([
+        Company::create([
             "name" => "若鯱家",
         ]);
 
-        $user = User::create([
+        User::create([
             "email" => "wakashachi@example.com",
             "password" => Hash::make("wsy12345"),
             "company_id" => 1,
         ]);
 
-        $menu = Menu::create([
+        Menu::create([
             "company_id" => 1,
             "name" => "メニュー1",
         ]);
 
-        $menuPage = MenuPage::create([
+        MenuPage::create([
             "menu_id" => 1,
             "count" => 1,
         ]);
