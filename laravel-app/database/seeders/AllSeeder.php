@@ -9,6 +9,7 @@ use App\Models\Company;
 use App\Models\Menu;
 use App\Models\MenuPage;
 use App\Models\MenuItem;
+use App\Models\Merch;
 
 class AllSeeder extends Seeder
 {
@@ -38,7 +39,7 @@ class AllSeeder extends Seeder
         ]);
 
         MenuItem::create([
-            "menu_id" => 1,
+            "merch_id" => 1,
             "menu_page_id" => 1,
             "width" => 1,
             "height" => 1,
