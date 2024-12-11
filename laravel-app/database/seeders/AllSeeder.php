@@ -10,6 +10,7 @@ use App\Models\Menu;
 use App\Models\MenuPage;
 use App\Models\MenuItem;
 use App\Models\Merch;
+use App\Models\MerchItem;
 
 class AllSeeder extends Seeder
 {
