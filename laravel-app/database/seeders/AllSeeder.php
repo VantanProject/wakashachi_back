@@ -92,7 +92,7 @@ class AllSeeder extends Seeder
                 "left" => 4,
             ]
         ]);
-        MenuItem::insert([
+        MerchItem::insert([
             [
                 "merch_id" => 1,
                 "language_id" => 1,
