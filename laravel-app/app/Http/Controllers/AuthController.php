@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Http\Requests\AuthRequest;
 use Illuminate\Support\Facades\Auth;
@@ -17,12 +18,10 @@ class AuthController extends Controller
             $token = $user->createToken('token')->plainTextToken;
             return response()->json([
                 'token' => $token,
-                'success' => 'true',
+                'success' => true,
             ], 200);
         }else{
-            return response()->json([
-                
-            ], 401);
+            return response()->noContent(401);
         }
     }
 }
