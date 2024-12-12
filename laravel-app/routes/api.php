@@ -9,8 +9,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::apiResource('merch', MerchController::class);
-
 Route::get("/allergy/select", function() {
     $allergies = Allergy::get()->map(function ($query) {
         return [
@@ -23,3 +21,7 @@ Route::get("/allergy/select", function() {
         "allergies" => $allergies,
     ]);
 });
+
+Route::apiResource('merch', MerchController::class);
+
+
