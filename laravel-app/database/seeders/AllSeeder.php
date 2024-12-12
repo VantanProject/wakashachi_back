@@ -24,6 +24,7 @@ class AllSeeder extends Seeder
         ]);
 
         User::create([
+            "name" => "若鯱家テストユーザー",
             "email" => "wakashachi@example.com",
             "password" => Hash::make("wsy12345"),
             "company_id" => 1,
