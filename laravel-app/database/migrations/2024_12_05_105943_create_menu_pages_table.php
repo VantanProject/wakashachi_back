@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("menu_id");
             $table->unsignedInteger("count");
-            $table->unsignedInteger("raw");
-            $table->unsignedInteger("column");
             $table->timestamps();
         });
     }
