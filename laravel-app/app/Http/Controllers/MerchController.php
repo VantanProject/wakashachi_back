@@ -20,16 +20,19 @@ class MerchController extends Controller
 
         $params = $request["search"];
 
-        if ($params) {
-            $queryMerch->where(function ($query) use ($params) {
+        $queryMerch->where(function ($query) use ($params) {
+            if ($params["name"]) {
                 $query->whereHas('merchItems', function ($q) use ($params) {
                     $q->where('name', 'like', '%' . $params['name'] . '%');
                 });
+            }
+
+            if ($params["allergyIds"]) {
                 $query->orWhereHas('allergies', function ($allergyQuery) use ($params) {
                     $allergyQuery->whereIn('allergy_id', $params['allergyIds']);
                 });
-            });
-        }
+            }
+        });
 
         $currentPage = $params['currentPage'];
         /**
@@ -47,7 +50,10 @@ class MerchController extends Controller
                 'merches' => $merches->map(function ($merch) {
                     return [
                         'id' => $merch->id,
-                        'name' => $merch->merchItems->first()->name,
+                        'name' => $merch->merchItems
+                            ->where('language_id', 1)
+                            ->first()
+                            ->name,
                         'allergies' => $merch->allergies->pluck('id')->toArray(),
                     ];
                 }),
