@@ -59,19 +59,20 @@ class MerchController extends Controller
 
     public function store(StoreMerchRequest $request)
     {
+        $company_id = Auth::user()->company_id;
         $validated = $request->validated();
 
         try {
-            DB::transaction(function () use ($validated) {
+            DB::transaction(function () use ($validated, $company_id) {
 
-                $image = $validated->file("merch.img_data");
-                $path = Storage::disk('s3')->put('wakashachi-app/merches', $image);
+                $image = $validated['merch']['img_data'];
+                $path = Storage::disk('s3')->putFile('wakashachi-app/merches', $image);
                 $imageUrl = config('filesystems.disks.s3.url') . '/' . $path;
 
                 //Merchテーブルへの追加です
                 $merch = Merch::create([
                     'img_url' => $imageUrl,
-                    'company_id' => $validated->user()->company_id,
+                    'company_id' => $company_id,
                     'price' => $validated['merch']['price'],
                 ]);
 

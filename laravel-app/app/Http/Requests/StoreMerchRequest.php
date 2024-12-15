@@ -25,7 +25,7 @@ class StoreMerchRequest extends FormRequest
             'merch.items' => 'required|array',
             'merch.items.*.name' => 'required|string|max:255',
             'merch.items.*.detail' => 'required|string|max:255',
-            'merch.items.*.language_id' => 'required|integer|exists:languages,id',
+            'merch.items.*.language_id' => 'required|integer',
             'merch.allergyIds' => 'required|array',
             'merch.allergyIds.*' => 'required|integer|exists:allergies,id',
             'merch.img_data' => 'required|file|image|max:10240',
