@@ -54,7 +54,7 @@ class MerchController extends Controller
                             ->where('language_id', 1)
                             ->first()
                             ->name,
-                        'allergies' => $merch->allergies->pluck('id')->toArray(),
+                        'allergyIds' => $merch->allergies->pluck('id')->toArray(),
                     ];
                 }),
                 'ids' => $merchIds,
@@ -97,7 +97,6 @@ class MerchController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => '商品の追加に失敗しました',
-                'error' => $e->getMessage(),
             ]);
         }
 
