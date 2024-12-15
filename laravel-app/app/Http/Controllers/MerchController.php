@@ -8,7 +8,7 @@ use App\Models\MerchItem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\StoreMerchRequest;
+use App\Http\Requests\MerchStoreRequest;
 
 class MerchController extends Controller
 {
@@ -57,7 +57,7 @@ class MerchController extends Controller
         );
     }
 
-    public function store(StoreMerchRequest $request)
+    public function store(MerchStoreRequest $request)
     {
         $company_id = Auth::user()->company_id;
         $validated = $request->validated();
