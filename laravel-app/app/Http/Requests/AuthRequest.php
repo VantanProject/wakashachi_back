@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AuthRequest extends FormRequest
 {
@@ -27,15 +29,12 @@ class AuthRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    protected function failedValidation(Validator $validator)
     {
-        return [
-            'email.required' => 'メールアドレスは必須です。',
-            'email.email' => '有効なメールアドレスを入力してください。',
-            'password.required' => 'パスワードは必須です。',
-            'password.string' => 'パスワードは文字列でなければなりません。',
-            
-            
-        ];
+        throw new HttpResponseException(
+            response()->json([
+                'success' => false
+            ], 422)
+        );
     }
 }
