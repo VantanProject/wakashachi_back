@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('height');
             $table->unsignedInteger('top');
             $table->unsignedInteger('left');
+            $table->string('type');
             $table->timestamps();
         });
     }

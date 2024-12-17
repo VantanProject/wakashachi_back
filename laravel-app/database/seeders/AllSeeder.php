@@ -33,28 +33,25 @@ class AllSeeder extends Seeder
         Menu::create([
             "company_id" => 1,
             "name" => "メニュー1",
+            "color" => "#FF0000",
         ]);
 
         MenuPage::insert([
             [
                 "menu_id" => 1,
                 "count" => 1,
-                "color" => "#FF0000",
             ],
             [
                 "menu_id" => 1,
                 "count" => 2,
-                "color" => "#0000FF",
             ],
             [
                 "menu_id" => 1,
                 "count" => 3,
-                "color" => "#00FF00",
             ],
             [
                 "menu_id" => 1,
                 "count" => 4,
-                "color" => "#FF00FF",
             ]
         ]);
 
@@ -73,36 +70,36 @@ class AllSeeder extends Seeder
 
         MenuItem::insert([
             [
-                "merch_id" => 1,
                 "menu_page_id" => 1,
                 "width" => 2,
                 "height" => 2,
                 "top" => 2,
                 "left" => 2,
+                "type" => "merch"
             ],
             [
-                "merch_id" => 1,
                 "menu_page_id" => 1,
                 "width" => 4,
                 "height" => 4,
                 "top" => 4,
                 "left" => 4,
+                "type" => "merch"
             ],
             [
-                "merch_id" => 2,
                 "menu_page_id" => 2,
                 "width" => 2,
                 "height" =>2,
                 "top" => 2,
                 "left" => 2,
+                "type" => "merch"
             ],
             [
-                "merch_id" => 2,
                 "menu_page_id" => 2,
                 "width" => 4,
                 "height" => 4,
                 "top" => 4,
                 "left" => 4,
+                "type" => "merch"
             ]
         ]);
         MerchItem::insert([
