@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('menu_pages', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("menu_id");
-            $table->unsignedInteger("count");
+            $table->unsignedBigInteger('menu_id');
+            $table->unsignedInteger('count');
             $table->timestamps();
         });
     }

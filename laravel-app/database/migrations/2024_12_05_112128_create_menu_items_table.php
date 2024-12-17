@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('menu_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("merch_id");
-            $table->unsignedBigInteger("menu_page_id");
-            $table->unsignedInteger("width");
-            $table->unsignedInteger("height");
-            $table->unsignedInteger("top");
-            $table->unsignedInteger("left");
+            $table->unsignedBigInteger('menu_page_id');
+            $table->unsignedInteger('width');
+            $table->unsignedInteger('height');
+            $table->unsignedInteger('top');
+            $table->unsignedInteger('left');
             $table->timestamps();
         });
     }
