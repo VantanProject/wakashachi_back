@@ -11,7 +11,7 @@ use App\Models\MenuPage;
 use App\Models\MenuItem;
 use App\Models\Merch;
 use App\Models\MerchItem;
-
+use App\Models\MenuItemMerch;
 class AllSeeder extends Seeder
 {
     /**
@@ -39,10 +39,22 @@ class AllSeeder extends Seeder
             [
                 "menu_id" => 1,
                 "count" => 1,
+                "color" => "#FF0000",
             ],
             [
                 "menu_id" => 1,
                 "count" => 2,
+                "color" => "#0000FF",
+            ],
+            [
+                "menu_id" => 1,
+                "count" => 3,
+                "color" => "#00FF00",
+            ],
+            [
+                "menu_id" => 1,
+                "count" => 4,
+                "color" => "#FF00FF",
             ]
         ]);
 
@@ -142,6 +154,24 @@ class AllSeeder extends Seeder
                 "name" => "테스트B",
                 "detail" => "이 제품은 테스트B입니다",
             ]
+        ]);
+        MenuItemMerch::insert([
+            [
+                "menu_item_id" => 1,
+                "merch_id" => 1,
+            ],
+            [
+                "menu_item_id" => 2,
+                "merch_id" => 1,
+            ],
+            [
+                "menu_item_id" => 3,
+                "merch_id" => 2,
+            ],
+            [
+                "menu_item_id" => 4,
+                "merch_id" => 2,
+            ],
         ]);
     }
 }
