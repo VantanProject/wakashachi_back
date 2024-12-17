@@ -14,9 +14,14 @@ class MenuPage extends Model
     {
         return $this->belongsTo(Menu::class);
     }
-    
+
     public function menuItems(): HasMany
     {
         return $this->hasMany(MenuItem::class);
+    }
+
+    public function menuPageImages(): HasMany
+    {
+        return $this->hasMany(MenuPageImage::class);
     }
 }
