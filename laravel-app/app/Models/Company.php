@@ -11,7 +11,7 @@ class Company extends Model
 
     public function merches(): HasMany
     {
-        return $this->hasMany(Merche::class);
+        return $this->hasMany(Merch::class);
     }
     public function users(): HasMany
     {

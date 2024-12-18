@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menu_pages', function (Blueprint $table) {
+        Schema::create('menu_item_merches', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('menu_id');
-            $table->unsignedInteger('count');
+            $table->unsignedBigInteger('menu_item_id');
+            $table->unsignedBigInteger('merch_id');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menu_pages');
+        Schema::dropIfExists('menu_item_merches');
     }
 };

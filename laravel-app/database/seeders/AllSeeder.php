@@ -11,7 +11,7 @@ use App\Models\MenuPage;
 use App\Models\MenuItem;
 use App\Models\Merch;
 use App\Models\MerchItem;
-
+use App\Models\MenuItemMerch;
 class AllSeeder extends Seeder
 {
     /**
@@ -33,6 +33,7 @@ class AllSeeder extends Seeder
         Menu::create([
             "company_id" => 1,
             "name" => "メニュー1",
+            "color" => "#FF0000",
         ]);
 
         MenuPage::insert([
@@ -43,6 +44,14 @@ class AllSeeder extends Seeder
             [
                 "menu_id" => 1,
                 "count" => 2,
+            ],
+            [
+                "menu_id" => 1,
+                "count" => 3,
+            ],
+            [
+                "menu_id" => 1,
+                "count" => 4,
             ]
         ]);
 
@@ -61,36 +70,36 @@ class AllSeeder extends Seeder
 
         MenuItem::insert([
             [
-                "merch_id" => 1,
                 "menu_page_id" => 1,
                 "width" => 2,
                 "height" => 2,
                 "top" => 2,
                 "left" => 2,
+                "type" => "merch"
             ],
             [
-                "merch_id" => 1,
                 "menu_page_id" => 1,
                 "width" => 4,
                 "height" => 4,
                 "top" => 4,
                 "left" => 4,
+                "type" => "merch"
             ],
             [
-                "merch_id" => 2,
                 "menu_page_id" => 2,
                 "width" => 2,
                 "height" =>2,
                 "top" => 2,
                 "left" => 2,
+                "type" => "merch"
             ],
             [
-                "merch_id" => 2,
                 "menu_page_id" => 2,
                 "width" => 4,
                 "height" => 4,
                 "top" => 4,
                 "left" => 4,
+                "type" => "merch"
             ]
         ]);
         MerchItem::insert([
@@ -142,6 +151,24 @@ class AllSeeder extends Seeder
                 "name" => "테스트B",
                 "detail" => "이 제품은 테스트B입니다",
             ]
+        ]);
+        MenuItemMerch::insert([
+            [
+                "menu_item_id" => 1,
+                "merch_id" => 1,
+            ],
+            [
+                "menu_item_id" => 2,
+                "merch_id" => 1,
+            ],
+            [
+                "menu_item_id" => 3,
+                "merch_id" => 2,
+            ],
+            [
+                "menu_item_id" => 4,
+                "merch_id" => 2,
+            ],
         ]);
     }
 }
