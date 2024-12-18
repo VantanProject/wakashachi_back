@@ -24,26 +24,26 @@ class MenuController extends Controller
             'color' => $menu['color'],
         ]);
 
-        foreach ($menu['page'] as $pageData) {
-            $menuPage = $createdMenu->pages()->create([
+        foreach ($menu['menuPages'] as $pageData) {
+            $menuPage = $createdMenu->menuPages()->create([
                 'count' => $pageData['count'],
             ]);
 
-            foreach ($pageData['items'] as $itemData) {
-                $menuItem = $menuPage->items()->create([
+            foreach ($pageData['menuItems'] as $itemData) {
+                $menuItem = $menuPage->menuItems()->create([
                     'width' => $itemData['width'],
                     'height' => $itemData['height'],
                     'top' => $itemData['top'],
                     'left' => $itemData['left'],
                 ]);
 
-                if ($itemData['type'] === 'merch') {
-                    $menuItem->merch()->create([
+                if ($itemData['type'] === 'menuItemMerch') {
+                    $menuItem->menuItemMerch()->create([
                         'merch_id' => $itemData['merch_id'],
                     ]);
                 } 
-                if ($itemData['type'] === 'text') {
-                    $menuItem->text()->create([
+                if ($itemData['type'] === 'menuItemTexts') {
+                    $menuItem->menuItemTexts()->create([
                         'text' => $itemData['text'],
                         'color' => $itemData['color'],
                     ]);
