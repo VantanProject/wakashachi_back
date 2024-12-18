@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MerchController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AuthController;
 use App\Models\Allergy;
 
@@ -17,6 +18,8 @@ Route::middleware("auth:sanctum")->group(function () {
     });
 
     Route::apiResource('merch', MerchController::class);
+
+    Route::apiResource('menu', MenuController::class);
 
     Route::get("/allergy/select", function() {
         $allergies = Allergy::get()->map(function ($query) {
