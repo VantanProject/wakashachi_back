@@ -24,7 +24,6 @@ class MerchStoreRequest extends FormRequest
         return [
             'merch.items' => 'required|array',
             'merch.items.*.name' => 'required|string|max:255',
-            'merch.items.*.detail' => 'required|string|max:255',
             'merch.items.*.language_id' => 'required|integer',
             'merch.allergyIds' => 'required|array',
             'merch.allergyIds.*' => 'required|integer|exists:allergies,id',
@@ -37,8 +36,6 @@ class MerchStoreRequest extends FormRequest
     {
         return [
             'merch.items.*.name.required' => '商品名は必須です',
-            'merch.items.*.detail.required' => '商品詳細は必須です',
-            'merch.items.*.detail.max' => '商品詳細は255文字以下でなければなりません',
             'merch.img_data.required' => '画像は必須です',
             'merch.img_data.file' => '画像はファイル形式でなければなりません',
             'merch.img_data.image' => '画像は画像形式でなければなりません',
