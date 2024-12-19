@@ -57,4 +57,49 @@ class MenuController extends Controller
             'message' => 'メニューが正常に追加されました！',
         ]);
     }
+
+    public function update(Request $request, $id)
+    {
+        $user = Auth::user();
+        $menu = $request["menu"];  
+
+        $updatedMenu = Menu::find($id)->update([
+            'company_id' => $user->company_id,
+            'name' => $menu['name'],
+            'color' => $menu['color'],
+        ]);
+
+        foreach ($menu['pages'] as $pageData) {
+            $menuPage = $updatedMenu->menuPages()->update([
+                'count' => $pageData['count'],
+            ]);
+
+            foreach ($pageData['items'] as $itemData) {
+                $menuItem = $menuPage->menuItems()->update([
+                    'width' => $itemData['width'],
+                    'height' => $itemData['height'],
+                    'top' => $itemData['top'],
+                    'left' => $itemData['left'],
+                    'type' => $itemData['type'],
+                ]);
+
+                if ($itemData['type'] === 'menuItemMerch') {
+                    $menuItem->menuItemMerch()->update([
+                        'merch_id' => $itemData['merch_id'],
+                    ]);
+                } 
+                if ($itemData['type'] === 'menuItemTexts') {
+                    $menuItem->menuItemTexts()->update([
+                        'text' => $itemData['text'],
+                        'color' => $itemData['color'],
+                    ]);
+                }
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'メニューが正常に更新されました！',
+        ]);
+    }
 }
