@@ -104,4 +104,14 @@ class MerchController extends Controller
             'message' => '商品の追加に成功しました',
         ]);
     }
+    public function destrory(Request $request)
+    {
+        $merchIds = $request['ids'];
+        Merch::whereIn("id", $merchIds)->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => '指定された商品が正常に削除されました！',
+        ]);
+    }
 }
