@@ -12,6 +12,38 @@ use Illuminate\Support\Facades\Auth;
 
 class MenuController extends Controller
 {
+    public function index(Request $request)
+    {
+        $user = Auth::user();
+        $companyId = $user->company_id;
+        $queryMenu = Menu::where('company_id', $companyId);
+
+        $params = $request["search"];
+
+        if ($params["name"]) {
+            $queryMenu->where('name', 'like', '%' . $params['name'] . '%');
+        }
+
+        $currentPage = $params['currentPage'];
+
+        $menus = $queryMenu->paginate(14, ['*'], 'page', $currentPage);
+        $menuIds = $menus->pluck('id')->toArray();
+
+        return response()->json(
+            [
+                'success' => true,
+                'menus' => $menus->map(function ($menu){
+                    return[
+                        'id' => $menu->id,
+                        'name' => $menu->name,
+                    ];
+                }),
+                'ids' => $menuIds,
+                'lastPage' => $menus->lastPage(),
+            ]
+            );
+    }
+
     public function store(Request $request)
     {
         $menu = $request['menu'];
@@ -42,7 +74,7 @@ class MenuController extends Controller
                     $menuItem->menuItemMerch()->create([
                         'merch_id' => $itemData['merch_id'],
                     ]);
-                } 
+                }
                 if ($itemData['type'] === 'menuItemTexts') {
                     $menuItem->menuItemTexts()->create([
                         'text' => $itemData['text'],
@@ -61,7 +93,7 @@ class MenuController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
-        $menu = $request["menu"];  
+        $menu = $request["menu"];
 
         $updatedMenu = Menu::find($id);
         $updatedMenu->update([
@@ -90,7 +122,7 @@ class MenuController extends Controller
                     $menuItem->menuItemMerch()->create([
                         'merch_id' => $itemData['merch_id'],
                     ]);
-                } 
+                }
                 if ($itemData['type'] === 'menuItemTexts') {
                     $menuItem->menuItemTexts()->create([
                         'text' => $itemData['text'],
