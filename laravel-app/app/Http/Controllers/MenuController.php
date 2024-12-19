@@ -63,19 +63,22 @@ class MenuController extends Controller
         $user = Auth::user();
         $menu = $request["menu"];  
 
-        $updatedMenu = Menu::find($id)->update([
+        $updatedMenu = Menu::find($id);
+        $updatedMenu->update([
             'company_id' => $user->company_id,
             'name' => $menu['name'],
             'color' => $menu['color'],
         ]);
 
+        $updatedMenu->menuPages()->delete();
+
         foreach ($menu['pages'] as $pageData) {
-            $menuPage = $updatedMenu->menuPages()->update([
+            $menuPage = $updatedMenu->menuPages()->create([
                 'count' => $pageData['count'],
             ]);
 
             foreach ($pageData['items'] as $itemData) {
-                $menuItem = $menuPage->menuItems()->update([
+                $menuItem = $menuPage->menuItems()->create([
                     'width' => $itemData['width'],
                     'height' => $itemData['height'],
                     'top' => $itemData['top'],
@@ -84,12 +87,12 @@ class MenuController extends Controller
                 ]);
 
                 if ($itemData['type'] === 'menuItemMerch') {
-                    $menuItem->menuItemMerch()->update([
+                    $menuItem->menuItemMerch()->create([
                         'merch_id' => $itemData['merch_id'],
                     ]);
                 } 
                 if ($itemData['type'] === 'menuItemTexts') {
-                    $menuItem->menuItemTexts()->update([
+                    $menuItem->menuItemTexts()->create([
                         'text' => $itemData['text'],
                         'color' => $itemData['color'],
                     ]);
