@@ -11,7 +11,6 @@ class MerchItem extends Model
         'merch_id',
         'language_id',
         'name',
-        'detail',
     ];
 
     public function merch(): BelongsTo
