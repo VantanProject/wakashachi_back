@@ -137,4 +137,14 @@ class MenuController extends Controller
             'message' => 'メニューが正常に更新されました！',
         ]);
     }
+    public function destrory(Request $request)
+    {
+        $menuIds = $request['ids'];
+        Menu::whereIn("id", $menuIds)->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => '指定されたメニューが正常に削除されました！',
+        ]);
+    }
 }

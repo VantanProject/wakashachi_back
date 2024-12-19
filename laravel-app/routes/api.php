@@ -17,9 +17,11 @@ Route::middleware("auth:sanctum")->group(function () {
         ]);
     });
 
-    Route::apiResource('merch', MerchController::class);
+    Route::apiResource('merch', MerchController::class)->except(['destrory']);
+    Route::delete('merch', [MerchController::class, 'destrory']);
 
-    Route::apiResource('menu', MenuController::class);
+    Route::apiResource('menu', MenuController::class)->except(['destrory']);
+    Route::delete('menu', [MenuController::class,'destrory']);
 
     Route::get("/allergy/select", function() {
         $allergies = Allergy::get()->map(function ($query) {
