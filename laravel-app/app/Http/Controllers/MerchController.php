@@ -86,7 +86,6 @@ class MerchController extends Controller
                 foreach ($validated['merch']['items'] as $item) {
                     $merch->merchItems()->create([
                         'name' => $item['name'],
-                        'detail' => $item['detail'],
                         'language_id' => $item['language_id'],
                     ]);
                 }
