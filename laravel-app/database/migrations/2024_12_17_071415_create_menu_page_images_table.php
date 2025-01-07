@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menu_pages', function (Blueprint $table) {
+        Schema::create('menu_page_images', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('menu_id');
-            $table->unsignedInteger('count');
+            $table->unsignedBigInteger('menu_page_id');
+            $table->unsignedBigInteger('language_id');
+            $table->string('img_url');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menu_pages');
+        Schema::dropIfExists('menu_page_images');
     }
 };

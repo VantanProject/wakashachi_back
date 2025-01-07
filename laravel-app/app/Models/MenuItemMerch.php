@@ -4,17 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class MerchItem extends Model
+class MenuItemMerch extends Model
 {
     protected $fillable = [
+        'menu_item_id',
         'merch_id',
-        'language_id',
-        'name',
     ];
 
     public function merch(): BelongsTo
     {
         return $this->belongsTo(Merch::class);
+    }
+
+    public function menuItem(): HasOne
+    {
+        return $this->hasOne(MenuItem::class);
     }
 }

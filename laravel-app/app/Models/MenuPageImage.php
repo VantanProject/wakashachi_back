@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class MerchItem extends Model
+class MenuPageImage extends Model
 {
     protected $fillable = [
+        'menu_page_id',
         'merch_id',
-        'language_id',
-        'name',
+        'img_url',
     ];
 
-    public function merch(): BelongsTo
+    public function menuPage(): BelongsTo
     {
-        return $this->belongsTo(Merch::class);
+        return $this->belongsTo(MenuPage::class);
     }
 }

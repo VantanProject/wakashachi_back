@@ -16,7 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('merch_id');
             $table->unsignedBigInteger('language_id');
             $table->string('name');
-            $table->text('detail');
             $table->timestamps();
         });
     }
