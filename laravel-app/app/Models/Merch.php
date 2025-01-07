@@ -31,7 +31,7 @@ class Merch extends Model
         return $this->hasOne(MenuItemMerch::class);
     }
 
-    public function merchItem(): HasMany
+    public function merchItems(): HasMany
     {
         return $this->hasMany(MerchItem::class);
     }
