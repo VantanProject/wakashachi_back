@@ -54,7 +54,7 @@ class MerchController extends Controller
                             ->where('language_id', 1)
                             ->first()
                             ->name,
-                        'allergyIds' => $merch->allergies->pluck('name')->toArray(),
+                        'allergyNames' => $merch->allergies->pluck('name')->toArray(),
                         'updated_at' => $merch->updated_at,
                     ];
                 }),
