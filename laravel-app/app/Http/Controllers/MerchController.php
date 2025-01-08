@@ -51,11 +51,11 @@ class MerchController extends Controller
                     return [
                         'id' => $merch->id,
                         'name' => $merch->merchTranslations
-                            ->where('language_id', 1)
+                            ->where('languageId', 1)
                             ->first()
                             ->name,
                         'allergyNames' => $merch->allergies->pluck('name')->toArray(),
-                        'updated_at' => Carbon::parse($merch->updated_at)->format('Y年m月d日'),
+                        'updatedAt' => Carbon::parse($merch->updated_at)->format('Y年m月d日'),
                     ];
                 }),
                 'ids' => $merchIds,
@@ -72,7 +72,7 @@ class MerchController extends Controller
         try {
             DB::transaction(function () use ($validated, $company_id) {
 
-                $image = $validated['merch']['img_data'];
+                $image = $validated['merch']['imgData'];
                 $path = Storage::disk('s3')->putFile('wakashachi-app/merches', $image);
                 $imageUrl = config('filesystems.disks.s3.url') . '/' . $path;
 
@@ -87,7 +87,7 @@ class MerchController extends Controller
                 foreach ($validated['merch']['translations'] as $translation) {
                     $merch->merchTranslations()->create([
                         'name' => $translation['name'],
-                        'language_id' => $translation['language_id'],
+                        'language_id' => $translation['languageId'],
                     ]);
                 }
 
@@ -114,7 +114,7 @@ class MerchController extends Controller
         try {
             DB::transaction(function () use ($validated, $company_id, $id) {
                 $merch = Merch::find($id);
-                $image = $validated['merch']['img_data'];
+                $image = $validated['merch']['imgData'];
                 $path = Storage::disk('s3')->putFile('wakashachi-app/merches', $image);
                 $imageUrl = config('filesystems.disks.s3.url') . '/' . $path;
 
@@ -127,7 +127,7 @@ class MerchController extends Controller
                 foreach ($validated['merch']['translations'] as $translation) {
                     $merch->merchTranslations()->update([
                         'name' => $translation['name'],
-                        'language_id' => $translation['language_id'],
+                        'language_id' => $translation['languageId'],
                     ]);
                 }
 

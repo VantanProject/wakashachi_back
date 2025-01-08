@@ -8,6 +8,34 @@ use Illuminate\Support\Facades\Auth;
 
 class MenuController extends Controller
 {
+    public function index(Request $request)
+    {
+        $user = Auth::user();
+        $companyId = $user->company_id;
+        $queryMenu = Menu::where('company_id', $companyId);
+        $params = $request["search"];
+        if ($params["name"]) {
+            $queryMenu->where('name', 'like', '%' . $params['name'] . '%');
+        }
+        $currentPage = $params['currentPage'];
+        $menus = $queryMenu->paginate(14, ['*'], 'page', $currentPage);
+        $menuIds = $menus->pluck('id')->toArray();
+        return response()->json(
+            [
+                'success' => true,
+                'menus' => $menus->map(function ($menu){
+                    return[
+                        'id' => $menu->id,
+                        'name' => $menu->name,
+                        'updatedAt' => $menu->updated_at,
+                    ];
+                }),
+                'ids' => $menuIds,
+                'lastPage' => $menus->lastPage(),
+            ]
+        );
+    }
+
     public function store(Request $request)
     {
         $menu = $request['menu'];
@@ -34,14 +62,13 @@ class MenuController extends Controller
                     'type' => $itemData['type'],
                 ]);
 
-                if ($itemData['type'] === 'menuItemMerch') {
+                if ($itemData['type'] === 'merch') {
                     $menuItem->menuItemMerch()->create([
-                        'merch_id' => $itemData['merch_id'],
+                        'merch_id' => $itemData['merchId'],
                     ]);
                 }
-                if ($itemData['type'] === 'menuItemTexts') {
+                if ($itemData['type'] === 'text') {
                     $menuItem->menuItemTexts()->create([
-                        'text' => $itemData['text'],
                         'color' => $itemData['color'],
                     ]);
                 }
@@ -82,20 +109,18 @@ class MenuController extends Controller
                     'type' => $itemData['type'],
                 ]);
 
-                if ($itemData['type'] === 'menuItemMerch') {
+                if ($itemData['type'] === 'merch') {
                     $menuItem->menuItemMerch()->create([
-                        'merch_id' => $itemData['merch_id'],
+                        'merch_id' => $itemData['merchId'],
                     ]);
                 }
-                if ($itemData['type'] === 'menuItemTexts') {
+                if ($itemData['type'] === 'text') {
                     $menuItem->menuItemTexts()->create([
-                        'text' => $itemData['text'],
                         'color' => $itemData['color'],
                     ]);
                 }
             }
         }
-
 
         return response()->json([
             'success' => true,
