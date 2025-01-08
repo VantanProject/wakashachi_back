@@ -83,11 +83,11 @@ class MerchController extends Controller
                     'price' => $validated['merch']['price'],
                 ]);
 
-                //MerchItemテーブルへの追加です
-                foreach ($validated['merch']['items'] as $item) {
+                //MerchTranslationテーブルへの追加です
+                foreach ($validated['merch']['translations'] as $translation) {
                     $merch->merchTranslations()->create([
-                        'name' => $item['name'],
-                        'language_id' => $item['language_id'],
+                        'name' => $translation['name'],
+                        'language_id' => $translation['language_id'],
                     ]);
                 }
 
@@ -124,10 +124,10 @@ class MerchController extends Controller
                     'price' => $validated['merch']['price'],
                 ]);
 
-                foreach ($validated['merch']['items'] as $item) {
-                    $merch->merchItems()->update([
-                        'name' => $item['name'],
-                        'language_id' => $item['language_id'],
+                foreach ($validated['merch']['translations'] as $translation) {
+                    $merch->merchTranslations()->update([
+                        'name' => $translation['name'],
+                        'language_id' => $translation['language_id'],
                     ]);
                 }
 
