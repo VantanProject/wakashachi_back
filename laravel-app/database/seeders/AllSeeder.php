@@ -10,7 +10,7 @@ use App\Models\Menu;
 use App\Models\MenuPage;
 use App\Models\MenuItem;
 use App\Models\Merch;
-use App\Models\MerchItem;
+use App\Models\MerchTranslation;
 use App\Models\MenuItemMerch;
 class AllSeeder extends Seeder
 {
@@ -34,6 +34,7 @@ class AllSeeder extends Seeder
             "company_id" => 1,
             "name" => "メニュー1",
             "color" => "#FF0000",
+            "updated_at" => now(),
         ]);
 
         MenuPage::insert([
@@ -60,11 +61,13 @@ class AllSeeder extends Seeder
                 "company_id" => 1,
                 'img_url' => 'https://example.com/images/text1.jpg',
                 'price' => 1000,
+                "updated_at" => now(),
             ],
             [
                 "company_id" => 1,
                 'img_url' => 'https://example.com/images/text2.jpg',
                 'price' => 2000,
+                "updated_at" => now(),
             ],
         ]);
 
@@ -102,54 +105,46 @@ class AllSeeder extends Seeder
                 "type" => "merch"
             ]
         ]);
-        MerchItem::insert([
+        MerchTranslation::insert([
             [
                 "merch_id" => 1,
                 "language_id" => 1,
                 "name" => "テストA",
-                "detail" => "この商品はテストAです",
             ],
             [
                 "merch_id" => 1,
                 "language_id" => 2,
                 "name" => "Test A",
-                "detail" => "This product is Test A",
             ],
             [
                 "merch_id" => 1,
                 "language_id" => 3,
                 "name" => "测试A",
-                "detail" => "这个商品是测试A",
             ],
             [
                 "merch_id" => 1,
                 "language_id" => 4,
                 "name" => "테스트A",
-                "detail" => "이 제품은 테스트A입니다",
             ],
             [
                 "merch_id" => 2,
                 "language_id" => 1,
                 "name" => "テストB",
-                "detail" => "この商品はテストBです",
             ],
             [
                 "merch_id" => 2,
                 "language_id" => 2,
                 "name" => "Test B",
-                "detail" => "This product is Test B",
             ],
             [
                 "merch_id" => 2,
                 "language_id" => 3,
                 "name" => "测试B",
-                "detail" => "这个商品是测试B",
             ],
             [
                 "merch_id" => 2,
                 "language_id" => 4,
                 "name" => "테스트B",
-                "detail" => "이 제품은 테스트B입니다",
             ]
         ]);
         MenuItemMerch::insert([

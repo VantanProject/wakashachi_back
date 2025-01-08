@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Merch;
-use App\Models\MerchItem;
+use App\Models\MerchTranslation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MerchStoreRequest;
+use Carbon\Carbon;
 
 class MerchController extends Controller
 {
@@ -16,13 +17,13 @@ class MerchController extends Controller
     {
         $user = Auth::user();
         $companyId = $user->company_id;
-        $queryMerch = Merch::where('company_id', $companyId)->with(['merchItems', 'allergies']);
+        $queryMerch = Merch::where('company_id', $companyId)->with(['merchTranslations', 'allergies']);
 
         $params = $request["search"];
 
         $queryMerch->where(function ($query) use ($params) {
             if ($params["name"]) {
-                $query->whereHas('merchItems', function ($q) use ($params) {
+                $query->whereHas('merchTranslations', function ($q) use ($params) {
                     $q->where('name', 'like', '%' . $params['name'] . '%');
                 });
             }
@@ -50,11 +51,12 @@ class MerchController extends Controller
                 'merches' => $merches->map(function ($merch) {
                     return [
                         'id' => $merch->id,
-                        'name' => $merch->merchItems
+                        'name' => $merch->merchTranslations
                             ->where('language_id', 1)
                             ->first()
                             ->name,
-                        'allergyIds' => $merch->allergies->pluck('id')->toArray(),
+                        'allergyNames' => $merch->allergies->pluck('name')->toArray(),
+                        'updated_at' => Carbon::parse($merch->updated_at)->format('Y年m月d日'),
                     ];
                 }),
                 'ids' => $merchIds,
@@ -84,7 +86,7 @@ class MerchController extends Controller
 
                 //MerchItemテーブルへの追加です
                 foreach ($validated['merch']['items'] as $item) {
-                    $merch->merchItems()->create([
+                    $merch->merchTranslations()->create([
                         'name' => $item['name'],
                         'language_id' => $item['language_id'],
                     ]);
@@ -142,6 +144,15 @@ class MerchController extends Controller
         return response()->json([
             'success' => true,
             'message' => '商品の更新に成功しました',
+
+    public function destrory(Request $request)
+    {
+        $merchIds = $request['ids'];
+        Merch::whereIn("id", $merchIds)->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => '指定された商品が正常に削除されました！',
         ]);
     }
 }
