@@ -106,6 +106,45 @@ class MerchController extends Controller
             'message' => '商品の追加に成功しました',
         ]);
     }
+
+    public function update(MerchStoreRequest $request, $id)
+    {
+        $company_id = Auth::user()->company_id;
+        $validated = $request->validated();
+
+        try {
+            DB::transaction(function () use ($validated, $company_id, $id) {
+                $merch = Merch::find($id);
+                $image = $validated['merch']['img_data'];
+                $path = Storage::disk('s3')->putFile('wakashachi-app/merches', $image);
+                $imageUrl = config('filesystems.disks.s3.url') . '/' . $path;
+
+                $merch->update([
+                    'img_url' => $imageUrl,
+                    'company_id' => $company_id,
+                    'price' => $validated['merch']['price'],
+                ]);
+
+                foreach ($validated['merch']['items'] as $item) {
+                    $merch->merchItems()->update([
+                        'name' => $item['name'],
+                        'language_id' => $item['language_id'],
+                    ]);
+                }
+
+                $merch->allergies()->sync($validated['merch']['allergyIds']);
+            });
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => '商品の更新に失敗しました',
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => '商品の更新に成功しました',
+
     public function destrory(Request $request)
     {
         $merchIds = $request['ids'];
