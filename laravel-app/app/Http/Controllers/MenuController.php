@@ -36,6 +36,7 @@ class MenuController extends Controller
                     return[
                         'id' => $menu->id,
                         'name' => $menu->name,
+                        'updated_at' => $menu->updated_at,
                     ];
                 }),
                 'ids' => $menuIds,
