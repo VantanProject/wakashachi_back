@@ -34,6 +34,7 @@ class AllSeeder extends Seeder
             "company_id" => 1,
             "name" => "メニュー1",
             "color" => "#FF0000",
+            "updated_at" => now(),
         ]);
 
         MenuPage::insert([
@@ -60,11 +61,13 @@ class AllSeeder extends Seeder
                 "company_id" => 1,
                 'img_url' => 'https://example.com/images/text1.jpg',
                 'price' => 1000,
+                "updated_at" => now(),
             ],
             [
                 "company_id" => 1,
                 'img_url' => 'https://example.com/images/text2.jpg',
                 'price' => 2000,
+                "updated_at" => now(),
             ],
         ]);
 
