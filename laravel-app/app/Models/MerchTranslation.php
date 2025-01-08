@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class MerchItem extends Model
+class MerchTranslation extends Model
 {
     protected $fillable = [
         'merch_id',

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Merch;
-use App\Models\MerchItem;
+use App\Models\MerchTranslation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -16,13 +16,13 @@ class MerchController extends Controller
     {
         $user = Auth::user();
         $companyId = $user->company_id;
-        $queryMerch = Merch::where('company_id', $companyId)->with(['merchItems', 'allergies']);
+        $queryMerch = Merch::where('company_id', $companyId)->with(['merchTranslations', 'allergies']);
 
         $params = $request["search"];
 
         $queryMerch->where(function ($query) use ($params) {
             if ($params["name"]) {
-                $query->whereHas('merchItems', function ($q) use ($params) {
+                $query->whereHas('merchTranslations', function ($q) use ($params) {
                     $q->where('name', 'like', '%' . $params['name'] . '%');
                 });
             }
@@ -50,7 +50,7 @@ class MerchController extends Controller
                 'merches' => $merches->map(function ($merch) {
                     return [
                         'id' => $merch->id,
-                        'name' => $merch->merchItems
+                        'name' => $merch->merchTranslations
                             ->where('language_id', 1)
                             ->first()
                             ->name,
@@ -85,7 +85,7 @@ class MerchController extends Controller
 
                 //MerchItemテーブルへの追加です
                 foreach ($validated['merch']['items'] as $item) {
-                    $merch->merchItems()->create([
+                    $merch->merchTranslations()->create([
                         'name' => $item['name'],
                         'language_id' => $item['language_id'],
                     ]);

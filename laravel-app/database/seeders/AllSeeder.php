@@ -10,7 +10,7 @@ use App\Models\Menu;
 use App\Models\MenuPage;
 use App\Models\MenuItem;
 use App\Models\Merch;
-use App\Models\MerchItem;
+use App\Models\MerchTranslation;
 use App\Models\MenuItemMerch;
 class AllSeeder extends Seeder
 {
@@ -102,7 +102,7 @@ class AllSeeder extends Seeder
                 "type" => "merch"
             ]
         ]);
-        MerchItem::insert([
+        MerchTranslation::insert([
             [
                 "merch_id" => 1,
                 "language_id" => 1,
