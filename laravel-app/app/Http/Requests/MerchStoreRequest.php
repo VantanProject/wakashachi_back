@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class MerchStoreRequest extends FormRequest
 {
@@ -22,9 +24,9 @@ class MerchStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'merch.items' => 'required|array',
-            'merch.items.*.name' => 'required|string|max:255',
-            'merch.items.*.language_id' => 'required|integer',
+            'merch.translations' => 'required|array',
+            'merch.translations.*.name' => 'required|string|max:255',
+            'merch.translations.*.language_id' => 'required|integer',
             'merch.allergyIds' => 'required|array',
             'merch.allergyIds.*' => 'required|integer|exists:allergies,id',
             'merch.img_data' => 'required|file|image|max:10240',
@@ -35,7 +37,7 @@ class MerchStoreRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'merch.items.*.name.required' => '商品名は必須です',
+            'merch.translations.*.name.required' => '商品名は必須です',
             'merch.img_data.required' => '画像は必須です',
             'merch.img_data.file' => '画像はファイル形式でなければなりません',
             'merch.img_data.image' => '画像は画像形式でなければなりません',
@@ -46,5 +48,15 @@ class MerchStoreRequest extends FormRequest
             'merch.price.max' => '価格は1000000以下でなければなりません',
             'merch.price.numeric' => '価格は数値でなければなりません',
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            response()->json([
+                'success' => false,
+                'errors' => $validator->errors()->all()
+            ], 422)
+        );
     }
 }
