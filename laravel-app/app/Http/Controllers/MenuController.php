@@ -4,47 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Menu;
-use App\Models\MenuPage;
-use App\Models\MenuItem;
-use App\Models\MenuItemText;
-use App\Models\MenuItemMerch;
 use Illuminate\Support\Facades\Auth;
 
 class MenuController extends Controller
 {
-    public function index(Request $request)
-    {
-        $user = Auth::user();
-        $companyId = $user->company_id;
-        $queryMenu = Menu::where('company_id', $companyId);
-
-        $params = $request["search"];
-
-        if ($params["name"]) {
-            $queryMenu->where('name', 'like', '%' . $params['name'] . '%');
-        }
-
-        $currentPage = $params['currentPage'];
-
-        $menus = $queryMenu->paginate(14, ['*'], 'page', $currentPage);
-        $menuIds = $menus->pluck('id')->toArray();
-
-        return response()->json(
-            [
-                'success' => true,
-                'menus' => $menus->map(function ($menu){
-                    return[
-                        'id' => $menu->id,
-                        'name' => $menu->name,
-                        'updated_at' => $menu->updated_at,
-                    ];
-                }),
-                'ids' => $menuIds,
-                'lastPage' => $menus->lastPage(),
-            ]
-            );
-    }
-
     public function store(Request $request)
     {
         $menu = $request['menu'];
@@ -94,7 +57,7 @@ class MenuController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
-        $menu = $request["menu"];
+        $menu = $request["menu"];  
 
         $updatedMenu = Menu::find($id);
         $updatedMenu->update([
@@ -133,19 +96,10 @@ class MenuController extends Controller
             }
         }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'メニューが正常に更新されました！',
-        ]);
-    }
-    public function destrory(Request $request)
-    {
-        $menuIds = $request['ids'];
-        Menu::whereIn("id", $menuIds)->delete();
 
         return response()->json([
             'success' => true,
-            'message' => '指定されたメニューが正常に削除されました！',
+            'message' => 'メニューが正常に更新されました！',
         ]);
     }
 }

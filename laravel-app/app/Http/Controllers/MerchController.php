@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Merch;
-use App\Models\MerchTranslation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -144,6 +143,8 @@ class MerchController extends Controller
         return response()->json([
             'success' => true,
             'message' => '商品の更新に成功しました',
+        ]);
+    }
 
     public function destrory(Request $request)
     {

@@ -19,6 +19,6 @@ class MenuItemText extends Model
     }
     public function textTranslations(): HasMany
     {
-        return $this->hasMany(TextTranslations::class);
+        return $this->hasMany(TextTranslation::class);
     }
 }
