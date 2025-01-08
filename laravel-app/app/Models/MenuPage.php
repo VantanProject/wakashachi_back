@@ -20,8 +20,8 @@ class MenuPage extends Model
         return $this->hasMany(MenuItem::class);
     }
 
-    public function menuPageImages(): HasMany
+    public function menuImageTranslations(): HasMany
     {
-        return $this->hasMany(MenuPageImage::class);
+        return $this->hasMany(MenuImageTranslation::class);
     }
 }
