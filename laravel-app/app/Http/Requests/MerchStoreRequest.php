@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class MerchStoreRequest extends FormRequest
 {
@@ -24,7 +26,7 @@ class MerchStoreRequest extends FormRequest
         return [
             'merch.translations' => 'required|array',
             'merch.translations.*.name' => 'required|string|max:255',
-            'merch.translations.*.language_id' => 'required|integer',
+            'merch.translations.*.languageId' => 'required|integer',
             'merch.allergyIds' => 'required|array',
             'merch.allergyIds.*' => 'required|integer|exists:allergies,id',
             'merch.imgData' => 'required|file|image|max:10240',
@@ -35,6 +37,7 @@ class MerchStoreRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'merch.translations.*.languageId.required' => '言語IDは必須です',
             'merch.translations.*.name.required' => '商品名は必須です',
             'merch.imgData.required' => '画像は必須です',
             'merch.imgData.file' => '画像はファイル形式でなければなりません',
@@ -46,5 +49,17 @@ class MerchStoreRequest extends FormRequest
             'merch.price.max' => '価格は1000000以下でなければなりません',
             'merch.price.numeric' => '価格は数値でなければなりません',
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            response()->json([
+                'success' => false,
+                'errors' => collect($validator->errors()->messages())
+                    ->flatten()
+                    ->toArray()
+            ], 422)
+        );
     }
 }

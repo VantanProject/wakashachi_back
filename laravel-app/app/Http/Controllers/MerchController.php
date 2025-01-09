@@ -51,7 +51,7 @@ class MerchController extends Controller
                     return [
                         'id' => $merch->id,
                         'name' => $merch->merchTranslations
-                            ->where('languageId', 1)
+                            ->where('language_id', 1)
                             ->first()
                             ->name,
                         'allergyNames' => $merch->allergies->pluck('name')->toArray(),
