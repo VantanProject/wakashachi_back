@@ -7,10 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Allergy extends Model
 {
-    protected $fillable = [
-        'name',
-        'image'
-    ];
+    protected $fillable = ['name'];
 
     public function merches(): BelongsToMany
     {
