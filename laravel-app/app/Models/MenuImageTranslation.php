@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class MenuPageImage extends Model
+class MenuImageTranslation extends Model
 {
     protected $fillable = [
         'menu_page_id',
