@@ -55,6 +55,7 @@ class MerchController extends Controller
                             ->first()
                             ->name,
                         'allergyNames' => $merch->allergies->pluck('name')->toArray(),
+                        'price' => $merch->price,
                         'updatedAt' => Carbon::parse($merch->updated_at)->format('Y年m月d日'),
                     ];
                 }),
