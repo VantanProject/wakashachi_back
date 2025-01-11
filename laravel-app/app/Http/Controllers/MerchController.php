@@ -27,7 +27,7 @@ class MerchController extends Controller
                 });
             }
 
-            if ($params["allergyIds"]) {
+            if (!empty($params["allergyIds"])) {
                 $query->orWhereHas('allergies', function ($allergyQuery) use ($params) {
                     $allergyQuery->whereIn('allergy_id', $params['allergyIds']);
                 });
