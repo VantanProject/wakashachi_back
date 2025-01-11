@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Menu;
-use App\Models\MenuPage;
-use App\Models\MenuItem;
-use App\Models\MenuItemText;
-use App\Models\MenuItemMerch;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class MenuController extends Controller
 {
@@ -17,18 +14,13 @@ class MenuController extends Controller
         $user = Auth::user();
         $companyId = $user->company_id;
         $queryMenu = Menu::where('company_id', $companyId);
-
         $params = $request["search"];
-
         if ($params["name"]) {
             $queryMenu->where('name', 'like', '%' . $params['name'] . '%');
         }
-
         $currentPage = $params['currentPage'];
-
         $menus = $queryMenu->paginate(14, ['*'], 'page', $currentPage);
         $menuIds = $menus->pluck('id')->toArray();
-
         return response()->json(
             [
                 'success' => true,
@@ -36,12 +28,13 @@ class MenuController extends Controller
                     return[
                         'id' => $menu->id,
                         'name' => $menu->name,
+                        'updatedAt' => Carbon::parse($menu->updated_at)->format('Y年m月d日'),
                     ];
                 }),
                 'ids' => $menuIds,
                 'lastPage' => $menus->lastPage(),
             ]
-            );
+        );
     }
 
     public function store(Request $request)
@@ -70,14 +63,13 @@ class MenuController extends Controller
                     'type' => $itemData['type'],
                 ]);
 
-                if ($itemData['type'] === 'menuItemMerch') {
+                if ($itemData['type'] === 'merch') {
                     $menuItem->menuItemMerch()->create([
-                        'merch_id' => $itemData['merch_id'],
+                        'merch_id' => $itemData['merchId'],
                     ]);
                 }
-                if ($itemData['type'] === 'menuItemTexts') {
+                if ($itemData['type'] === 'text') {
                     $menuItem->menuItemTexts()->create([
-                        'text' => $itemData['text'],
                         'color' => $itemData['color'],
                     ]);
                 }
@@ -93,7 +85,7 @@ class MenuController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
-        $menu = $request["menu"];
+        $menu = $request["menu"];  
 
         $updatedMenu = Menu::find($id);
         $updatedMenu->update([
@@ -118,14 +110,13 @@ class MenuController extends Controller
                     'type' => $itemData['type'],
                 ]);
 
-                if ($itemData['type'] === 'menuItemMerch') {
+                if ($itemData['type'] === 'merch') {
                     $menuItem->menuItemMerch()->create([
-                        'merch_id' => $itemData['merch_id'],
+                        'merch_id' => $itemData['merchId'],
                     ]);
                 }
-                if ($itemData['type'] === 'menuItemTexts') {
+                if ($itemData['type'] === 'text') {
                     $menuItem->menuItemTexts()->create([
-                        'text' => $itemData['text'],
                         'color' => $itemData['color'],
                     ]);
                 }
@@ -137,14 +128,15 @@ class MenuController extends Controller
             'message' => 'メニューが正常に更新されました！',
         ]);
     }
+
     public function destrory(Request $request)
     {
-        $menuIds = $request['ids'];
-        Menu::whereIn("id", $menuIds)->delete();
+        $merchIds = $request['ids'];
+        Menu::whereIn("id", $merchIds)->delete();
 
         return response()->json([
             'success' => true,
-            'message' => '指定されたメニューが正常に削除されました！',
+            'message' => '正常に削除されました！',
         ]);
     }
 }

@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Merch;
-use App\Models\MerchItem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MerchStoreRequest;
+use Carbon\Carbon;
 
 class MerchController extends Controller
 {
@@ -16,13 +16,13 @@ class MerchController extends Controller
     {
         $user = Auth::user();
         $companyId = $user->company_id;
-        $queryMerch = Merch::where('company_id', $companyId)->with(['merchItems', 'allergies']);
+        $queryMerch = Merch::where('company_id', $companyId)->with(['merchTranslations', 'allergies']);
 
         $params = $request["search"];
 
         $queryMerch->where(function ($query) use ($params) {
             if ($params["name"]) {
-                $query->whereHas('merchItems', function ($q) use ($params) {
+                $query->whereHas('merchTranslations', function ($q) use ($params) {
                     $q->where('name', 'like', '%' . $params['name'] . '%');
                 });
             }
@@ -50,11 +50,12 @@ class MerchController extends Controller
                 'merches' => $merches->map(function ($merch) {
                     return [
                         'id' => $merch->id,
-                        'name' => $merch->merchItems
+                        'name' => $merch->merchTranslations
                             ->where('language_id', 1)
                             ->first()
                             ->name,
-                        'allergyIds' => $merch->allergies->pluck('id')->toArray(),
+                        'allergyNames' => $merch->allergies->pluck('name')->toArray(),
+                        'updatedAt' => Carbon::parse($merch->updated_at)->format('Y年m月d日'),
                     ];
                 }),
                 'ids' => $merchIds,
@@ -71,7 +72,7 @@ class MerchController extends Controller
         try {
             DB::transaction(function () use ($validated, $company_id) {
 
-                $image = $validated['merch']['img_data'];
+                $image = $validated['merch']['imgData'];
                 $path = Storage::disk('s3')->putFile('wakashachi-app/merches', $image);
                 $imageUrl = config('filesystems.disks.s3.url') . '/' . $path;
 
@@ -82,11 +83,11 @@ class MerchController extends Controller
                     'price' => $validated['merch']['price'],
                 ]);
 
-                //MerchItemテーブルへの追加です
-                foreach ($validated['merch']['items'] as $item) {
-                    $merch->merchItems()->create([
-                        'name' => $item['name'],
-                        'language_id' => $item['language_id'],
+                //MerchTranslationテーブルへの追加です
+                foreach ($validated['merch']['translations'] as $translation) {
+                    $merch->merchTranslations()->create([
+                        'name' => $translation['name'],
+                        'language_id' => $translation['languageId'],
                     ]);
                 }
 
@@ -104,6 +105,47 @@ class MerchController extends Controller
             'message' => '商品の追加に成功しました',
         ]);
     }
+
+    public function update(MerchStoreRequest $request, $id)
+    {
+        $company_id = Auth::user()->company_id;
+        $validated = $request->validated();
+
+        try {
+            DB::transaction(function () use ($validated, $company_id, $id) {
+                $merch = Merch::find($id);
+                $image = $validated['merch']['imgData'];
+                $path = Storage::disk('s3')->putFile('wakashachi-app/merches', $image);
+                $imageUrl = config('filesystems.disks.s3.url') . '/' . $path;
+
+                $merch->update([
+                    'img_url' => $imageUrl,
+                    'company_id' => $company_id,
+                    'price' => $validated['merch']['price'],
+                ]);
+
+                foreach ($validated['merch']['translations'] as $translation) {
+                    $merch->merchTranslations()->update([
+                        'name' => $translation['name'],
+                        'language_id' => $translation['languageId'],
+                    ]);
+                }
+
+                $merch->allergies()->sync($validated['merch']['allergyIds']);
+            });
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => '商品の更新に失敗しました',
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => '商品の更新に成功しました',
+        ]);
+    }
+
     public function destrory(Request $request)
     {
         $merchIds = $request['ids'];
@@ -111,7 +153,7 @@ class MerchController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => '指定された商品が正常に削除されました！',
+            'message' => '正常に削除されました！',
         ]);
     }
 }
