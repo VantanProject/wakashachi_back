@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Menu;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class MenuController extends Controller
 {
@@ -27,7 +28,7 @@ class MenuController extends Controller
                     return[
                         'id' => $menu->id,
                         'name' => $menu->name,
-                        'updatedAt' => $menu->updated_at,
+                        'updatedAt' => Carbon::parse($menu->updated_at)->format('Y年m月d日'),
                     ];
                 }),
                 'ids' => $menuIds,
@@ -125,6 +126,17 @@ class MenuController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'メニューが正常に更新されました！',
+        ]);
+    }
+
+    public function destrory(Request $request)
+    {
+        $merchIds = $request['ids'];
+        Menu::whereIn("id", $merchIds)->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => '正常に削除されました！',
         ]);
     }
 }

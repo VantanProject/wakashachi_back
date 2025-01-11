@@ -153,7 +153,7 @@ class MerchController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => '指定された商品が正常に削除されました！',
+            'message' => '正常に削除されました！',
         ]);
     }
 }
