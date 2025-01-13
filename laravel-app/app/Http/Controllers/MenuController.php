@@ -69,9 +69,16 @@ class MenuController extends Controller
                     ]);
                 }
                 if ($itemData['type'] === 'text') {
-                    $menuItem->menuItemTexts()->create([
+                    $createdMenuItemTexts = $menuItem->menuItemTexts()->create([
                         'color' => $itemData['color'],
                     ]);
+
+                    foreach ($itemData['translations'] as $translation) {
+                        $createdMenuItemTexts->textTranslations()->create([
+                            'text' => $translation['text'],
+                            'language_id' => $translation['languageId'],
+                        ]);
+                    }
                 }
             }
         }
@@ -116,9 +123,16 @@ class MenuController extends Controller
                     ]);
                 }
                 if ($itemData['type'] === 'text') {
-                    $menuItem->menuItemTexts()->create([
+                    $createdMenuItemTexts = $menuItem->menuItemTexts()->create([
                         'color' => $itemData['color'],
                     ]);
+
+                    foreach ($itemData['translations'] as $translation) {
+                        $createdMenuItemTexts->textTranslations()->create([
+                            'text' => $translation['text'],
+                            'language_id' => $translation['languageId'],
+                        ]);
+                    }
                 }
             }
         }

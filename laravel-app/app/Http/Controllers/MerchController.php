@@ -27,7 +27,7 @@ class MerchController extends Controller
                 });
             }
 
-            if ($params["allergyIds"]) {
+            if (!empty($params["allergyIds"])) {
                 $query->orWhereHas('allergies', function ($allergyQuery) use ($params) {
                     $allergyQuery->whereIn('allergy_id', $params['allergyIds']);
                 });
@@ -55,6 +55,7 @@ class MerchController extends Controller
                             ->first()
                             ->name,
                         'allergyNames' => $merch->allergies->pluck('name')->toArray(),
+                        'price' => $merch->price,
                         'updatedAt' => Carbon::parse($merch->updated_at)->format('Y年m月d日'),
                     ];
                 }),
