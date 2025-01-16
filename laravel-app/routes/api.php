@@ -6,8 +6,11 @@ use App\Http\Controllers\MerchController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AuthController;
 use App\Models\Allergy;
+use App\Http\Controllers\TranslationController;
 
 Route::post('/login', [AuthController::class, 'index']);
+
+Route::post('/compare-translations', [TranslationController::class, 'compareTranslations']);
 
 Route::middleware("auth:sanctum")->group(function () {
     Route::get('/token', function (Request $request) {
@@ -35,4 +38,7 @@ Route::middleware("auth:sanctum")->group(function () {
             "allergies" => $allergies,
         ]);
     });
+
+
+
 });
