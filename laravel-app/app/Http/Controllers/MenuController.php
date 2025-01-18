@@ -52,6 +52,7 @@ class MenuController extends Controller
                         if ($item->type === 'merch') {
                             return [
                                 'type' => $item->type,
+                                'merchId' => $item->menuItemMerch->merch_id,
                                 'width' => $item->width,
                                 'height' => $item->height,
                                 'top' => $item->top,
@@ -62,6 +63,7 @@ class MenuController extends Controller
                         if ($item->type === 'text') {
                             return [
                                 'type' => $item->type,
+                                'color' => $item->menuItemTexts->color,
                                 'width' => $item->width,
                                 'height' => $item->height,
                                 'top' => $item->top,
