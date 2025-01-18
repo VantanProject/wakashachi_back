@@ -65,6 +65,29 @@ class MerchController extends Controller
         );
     }
 
+    public function show($id)
+    {
+        $user = Auth::user();
+        $merch = Merch::with(['merchTranslations', 'allergies'])
+        ->where('company_id', $user->company_id)
+        ->findOrFail($id);
+
+        return response()->json([
+            'success' => true,
+            'merch' => [
+                'translations' => $merch->merchTranslations->map(function ($translation) {
+                    return [
+                        'name' => $translation->name,
+                        'languageId' => $translation->language_id,
+                    ];
+                }),
+                'allergyIds' => $merch->allergies->pluck('allergy_id')->toArray(),
+                'imgUrl' => $merch->img_url,
+                'price' => $merch->price,
+            ],
+        ]);
+    }
+
     public function store(MerchStoreRequest $request)
     {
         $company_id = Auth::user()->company_id;
