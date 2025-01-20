@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Menu;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\MenuStoreRequest;
+use App\Http\Requests\MenustoreRequest;
 use Carbon\Carbon;
 
 class MenuController extends Controller
@@ -39,17 +39,15 @@ class MenuController extends Controller
         );
     }
 
-    public function store(MenuStoreRequest $request)
+    public function store(MenustoreRequest $request)
     {
-        $menu = $request['menu'];
-
-        $user = Auth::user();
-        $validated = $request->validated();
+        $company_id = Auth::user()->company_id;
+        $validated = $request->validated()["menu"];
 
         try {
-            DB::transaction(function () use ($validated,$menu,$user) {
+            DB::transaction(function () use ($validated, $company_id) {
                 $createdMenu = Menu::create([
-                    'company_id' => $user->company_id,
+                    'company_id' => $company_id,
                     'name' => $validated['name'],
                     'color' => $validated['color'],
                 ]);
@@ -101,57 +99,60 @@ class MenuController extends Controller
         ]);
     }
 
-    public function update(MenuStoreRequest $request, $id)
+    public function update(MenustoreRequest $request, $id)
     {
-        $user = Auth::user();
-        $menu = $request["menu"];
-        $updatedMenu = Menu::find($id);
-        $validated = $request->validated();
+        $company_id = Auth::user()->company_id;
+        $validated = $request->validated()["menu"];
         try{
-            DB::transaction(function () use ($validated,$menu,$user) {
-
-            });
-        }
-        $updatedMenu->update([
-            'company_id' => $user->company_id,
-            'name' => $menu['name'],
-            'color' => $menu['color'],
-        ]);
-
-        $updatedMenu->menuPages()->delete();
-
-        foreach ($menu['pages'] as $pageData) {
-            $menuPage = $updatedMenu->menuPages()->create([
-                'count' => $pageData['count'],
-            ]);
-
-            foreach ($pageData['items'] as $itemData) {
-                $menuItem = $menuPage->menuItems()->create([
-                    'width' => $itemData['width'],
-                    'height' => $itemData['height'],
-                    'top' => $itemData['top'],
-                    'left' => $itemData['left'],
-                    'type' => $itemData['type'],
+            DB::transaction(function () use ($validated,$company_id,$id) {
+                $updatedMenu = Menu::find($id);
+                $updatedMenu->update([
+                    'company_id' => $company_id,
+                    'name' => $validated['name'],
+                    'color' => $validated['color'],
                 ]);
 
-                if ($itemData['type'] === 'merch') {
-                    $menuItem->menuItemMerch()->create([
-                        'merch_id' => $itemData['merchId'],
-                    ]);
-                }
-                if ($itemData['type'] === 'text') {
-                    $createdMenuItemTexts = $menuItem->menuItemTexts()->create([
-                        'color' => $itemData['color'],
+                $updatedMenu->menuPages()->delete();
+
+                foreach ($validated['pages'] as $pageData) {
+                    $menuPage = $updatedMenu->menuPages()->create([
+                        'count' => $pageData['count'],
                     ]);
 
-                    foreach ($itemData['translations'] as $translation) {
-                        $createdMenuItemTexts->textTranslations()->create([
-                            'text' => $translation['text'],
-                            'language_id' => $translation['languageId'],
+                    foreach ($pageData['items'] as $itemData) {
+                        $menuItem = $menuPage->menuItems()->create([
+                            'width' => $itemData['width'],
+                            'height' => $itemData['height'],
+                            'top' => $itemData['top'],
+                            'left' => $itemData['left'],
+                            'type' => $itemData['type'],
                         ]);
+
+                        if ($itemData['type'] === 'merch') {
+                            $menuItem->menuItemMerch()->create([
+                                'merch_id' => $itemData['merchId'],
+                            ]);
+                        }
+                        if ($itemData['type'] === 'text') {
+                            $createdMenuItemTexts = $menuItem->menuItemTexts()->create([
+                                'color' => $itemData['color'],
+                            ]);
+
+                            foreach ($itemData['translations'] as $translation) {
+                                $createdMenuItemTexts->textTranslations()->create([
+                                    'text' => $translation['text'],
+                                    'language_id' => $translation['languageId'],
+                                ]);
+                            }
+                        }
                     }
                 }
-            }
+            });
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'メニューの更新が失敗しました！',
+            ]);
         }
 
         return response()->json([

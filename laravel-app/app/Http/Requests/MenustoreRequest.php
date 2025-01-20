@@ -37,8 +37,8 @@ class MenustoreRequest extends FormRequest
             'menu.pages.*.items.*.merchId' => 'required_if:menu.pages.*.items.*.type,merch|integer|exists:merches,id',
             'menu.pages.*.items.*.color' => 'required_if:menu.pages.*.items.*.type,text|string|max:50',
             'menu.pages.*.items.*.translations' => 'required_if:menu.pages.*.items.*.type,text|array',
-            'menu.pages.*.items.*.translations.*.languageId' => 'required|integer|exists:languages,id',
-            'menu.pages.*.items.*.translations.*.text' => 'required|string',
+            'menu.pages.*.items.*.translations.*.languageId' => 'required|integer',
+            'menu.pages.*.items.*.translations.*.text' => 'required|string|max:255',
         ];
     }
 
@@ -54,7 +54,7 @@ class MenustoreRequest extends FormRequest
             'menu.pages.*.items.*.width.integer' => 'アイテムの幅は整数でなければなりません。',
             'menu.pages.*.items.*.height.integer' => 'アイテムの高さは整数でなければなりません。',
             'menu.pages.*.items.*.height.min' => 'アイテムの高さは1以上である必要があります。',
-            'menu.pages.*.items.*.top.integer' => 'アイテムの上辺位置は整数でなければなりません。',,
+            'menu.pages.*.items.*.top.integer' => 'アイテムの上辺位置は整数でなければなりません。',
             'menu.pages.*.items.*.left.integer' => 'アイテムの左辺位置は整数でなければなりません。',
             'menu.pages.*.items.*.merchId.required_if' => 'merchアイテムにはmerchIdが必要です。',
             'menu.pages.*.items.*.merchId.exists' => '指定された商品IDが存在しません。',
