@@ -36,7 +36,55 @@ class MenuController extends Controller
             ]
         );
     }
+    public function show($id)
+    {
+        $user = Auth::user();
+        $showdMenu = Menu::find($id);
 
+
+        $menu = [
+            'name' => $showdMenu->name,
+            'color' => $showdMenu->color,
+            'pages' => $showdMenu->menuPages->map(function ($page) {
+                return[
+                    'count' => $page->count,
+                    'items' => $page->menuItems->map(function ($item) {
+                        if ($item->type === 'merch') {
+                            return [
+                                'type' => $item->type,
+                                'merchId' => $item->menuItemMerch->merch_id,
+                                'width' => $item->width,
+                                'height' => $item->height,
+                                'top' => $item->top,
+                                'left' => $item->left,
+                            ];
+                        }
+
+                        if ($item->type === 'text') {
+                            return [
+                                'type' => $item->type,
+                                'color' => $item->menuItemTexts->color,
+                                'width' => $item->width,
+                                'height' => $item->height,
+                                'top' => $item->top,
+                                'left' => $item->left,
+                                'translations' => $item->menuItemTexts->textTranslations->map(function ($translation) {
+                                    return [
+                                        'languageId' => $translation->language_id,
+                                        'text' => $translation->text,
+                                    ];
+                                }),
+                            ];
+                        }
+                    })
+                ];
+            })
+        ];
+        return response()->json([
+            "success" => true,
+            "menu" => $menu
+        ]);
+    }
     public function store(Request $request)
     {
         $menu = $request['menu'];
@@ -92,7 +140,7 @@ class MenuController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
-        $menu = $request["menu"];  
+        $menu = $request["menu"];
 
         $updatedMenu = Menu::find($id);
         $updatedMenu->update([
