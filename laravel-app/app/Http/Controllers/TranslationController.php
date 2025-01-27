@@ -18,15 +18,15 @@ class TranslationController extends Controller
     {
         $request->validate([
             'text' => 'required|string',
-            'source' => 'required|string|size:2',
-            'target' => 'required|string|size:2',
+            'sourceId' => 'required|string|in:1,2,3,4',
+            'targetId' => 'required|string|in:1,2,3,4',
         ]);
 
         try {
             $results = $this->translatorService->compareTranslations(
                 $request->input('text'),
-                $request->input('source'),
-                $request->input('target')
+                $request->input('sourceId'),
+                $request->input('targetId')
             );
 
             return response()->json([
