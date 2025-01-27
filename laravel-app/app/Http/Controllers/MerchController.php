@@ -81,7 +81,13 @@ class MerchController extends Controller
                         'languageId' => $translation->language_id,
                     ];
                 }),
-                'allergyIds' => $merch->allergies->pluck('allergy_id')->toArray(),
+                'allergyIds' => $merch->allergies()->pluck('allergy_id')->toArray(),
+                /**
+                 * Retrieves the image URL for the given merchandise item.
+                 *
+                 * @param string $merch->img_url The URL of the merchandise item's image.
+                 * @return string The retrieved image URL.
+                 */
                 'imgUrl' => $merch->img_url,
                 'price' => $merch->price,
             ],
