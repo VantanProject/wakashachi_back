@@ -201,14 +201,14 @@ class TranslatorService
 
             return [
                 'google' => [
-                    'translation' => $googleForward,
-                    'back_translation' => $googleBackward,
-                    'total_score' => round($googleTotalScore, 2)
+                    'transLation' => $googleForward,
+                    'backTranslation' => $googleBackward,
+                    'totalScore' => round($googleTotalScore, 2)
                 ],
                 'deepl' => [
                     'translation' => $deeplForward,
-                    'back_translation' => $deeplBackward,
-                    'total_score' => round($deeplTotalScore, 2)
+                    'backTranslation' => $deeplBackward,
+                    'totalScore' => round($deeplTotalScore, 2)
                 ],
                 'recommended' => $recommendedTranslation
             ];
@@ -247,12 +247,11 @@ class TranslatorService
     {
         switch ($target) {
             case 'en':
-                // 英語：単語単位の評価を重視
                 return [
-                    'levenshtein' => 0.10,
-                    'bleu' => 0.45,        // 単語の順序を重視
-                    'jaccard' => 0.15,
-                    'cosine' => 0.30
+                    'levenshtein' => 0.15,  // 文字列の完全一致への依存を下げる
+                    'bleu' => 0.40,         // フレーズの一致度を重視
+                    'jaccard' => 0.25,      // 単語の共通性は維持
+                    'cosine' => 0.20        // 全体的な類似度は維持
                 ];
 
             case 'zh':
@@ -406,25 +405,25 @@ class TranslatorService
         try {
             Log::info('=== Post Processing Translation ===');
             Log::info('Input text: ' . $text);
-            Log::info('Target language: ' . $target);
             Log::info('Translator: ' . ($isGoogle ? 'Google' : 'DeepL'));
 
-            // 特殊アイテムの検出
-            preg_match_all('/\[\[SPECIAL_ITEM_(\d+)\]\]/', $text, $matches, PREG_SET_ORDER);
-            if (!empty($matches)) {
-                Log::info('Found placeholders: ' . json_encode($matches, JSON_UNESCAPED_UNICODE));
-            }
+            // デバッグ: 引用符の数をカウント
+            Log::info('Before processing:');
+            Log::info('「 count: ' . substr_count($text, '「'));
+            Log::info('」 count: ' . substr_count($text, '」'));
+            Log::info('" count: ' . substr_count($text, '"'));
+            Log::info('" count: ' . substr_count($text, '"'));
+            Log::info('" count: ' . substr_count($text, '"'));
 
-            // 句読点の処理
-            if ($target === 'zh') {
-                $text = str_replace(['、'], ['，'], $text);
-                $text = str_replace(['。'], ['．'], $text);
-                Log::info('Punctuation processed for Chinese: ' . $text);
-            }
+            // 両方のAPIで同じ処理を適用
+            $text = preg_replace('/"([^"]+)"/', '「$1」', $text);
+            $text = preg_replace('/「([^」]+)「/', '「$1」', $text);
+
+            Log::info('After processing:');
+            Log::info('「 count: ' . substr_count($text, '「'));
+            Log::info('」 count: ' . substr_count($text, '」'));
 
             Log::info('Final processed text: ' . $text);
-            Log::info('=== Post Processing End ===');
-
             return $text;
         } catch (Exception $e) {
             Log::error('Post-processing error: ' . $e->getMessage());
@@ -451,61 +450,12 @@ class TranslatorService
             Log::info('=== Translation Process Start ===');
             Log::info('Original text: ' . $text);
 
-            $langCode = self::LANGUAGE_CODES[$targetId]['google'];
-
-            // 1. 「」を一時的に{}に置換（より自然な区切り文字）
-            $processedText = str_replace(['「', '」'], ['{', '}'], $text);
-            Log::info('Text with brackets: ' . $processedText);
-
-            // 2. 辞書の特殊アイテムを事前翻訳
-            $processedText = preg_replace_callback('/\{([^}]+)\}/', function($matches) use ($langCode) {
-                $item = $matches[1];
-                if (isset($this->dictionary['special_items'][$item][$langCode])) {
-                    $translation = $this->dictionary['special_items'][$item][$langCode];
-                    // 中括弧を維持して翻訳を挿入
-                    return '{' . $translation . '}';
-                }
-                // 辞書にない場合は元の形式を維持
-                return '{' . $item . '}';
-            }, $processedText);
-
-            Log::info('Pre-translated text: ' . $processedText);
-
-            // 3. APIで翻訳
-            $googleResult = $this->translateWithGoogle($processedText, $sourceId, $targetId);
-            $deeplResult = $this->translateWithDeepL($processedText, $sourceId, $targetId);
-
-            Log::info('Raw Google translation: ' . $googleResult);
-            Log::info('Raw DeepL translation: ' . $deeplResult);
-
-            // 4. 残った{}を適切な引用符に変換
-            $googleResult = preg_replace('/\{([^}]+)\}/', '『$1』', $googleResult);
-            $deeplResult = preg_replace('/\{([^}]+)\}/', '『$1』', $deeplResult);
-
-            // 5. 不要な空白の調整
-            $googleResult = preg_replace('/』\s+/', '』', $googleResult);
-            $deeplResult = preg_replace('/』\s+/', '』', $deeplResult);
-
-            Log::info('Final Google translation: ' . $googleResult);
-            Log::info('Final DeepL translation: ' . $deeplResult);
+            // compareTranslationsを利用して処理を統一
+            $result = $this->compareTranslations($text, $sourceId, $targetId);
 
             return [
                 'success' => true,
-                'results' => [
-                    'google' => [
-                        'translation' => $googleResult,
-                        'back_translation' => $this->translateWithGoogle($googleResult, $targetId, $sourceId),
-                        'total_score' => $this->calculateFinalScore($text, $this->translateWithGoogle($googleResult, $targetId, $sourceId), $targetId)
-                    ],
-                    'deepl' => [
-                        'translation' => $deeplResult,
-                        'back_translation' => $this->translateWithGoogle($deeplResult, $targetId, $sourceId),
-                        'total_score' => $this->calculateFinalScore($text, $this->translateWithGoogle($deeplResult, $targetId, $sourceId), $targetId)
-                    ],
-                    'recommended' => $this->calculateFinalScore($text, $this->translateWithGoogle($googleResult, $targetId, $sourceId), $targetId) >
-                                    $this->calculateFinalScore($text, $this->translateWithGoogle($deeplResult, $targetId, $sourceId), $targetId)
-                                    ? $googleResult : $deeplResult
-                ]
+                'results' => $result
             ];
 
         } catch (Exception $e) {
