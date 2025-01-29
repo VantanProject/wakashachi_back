@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\TranslatorService;
-use Illuminate\Http\Request;
+use App\Services\Translation\TranslatorService;
+use App\Http\Requests\CompareTranslationRequest;
 
 class TranslationController extends Controller
 {
@@ -14,29 +14,29 @@ class TranslationController extends Controller
         $this->translatorService = $translatorService;
     }
 
-    public function compareTranslations(Request $request)
+
+    public function compareTranslation(CompareTranslationRequest $request)
     {
-        $request->validate([
-            'text' => 'required|string',
-            'sourceId' => 'required|string|in:1,2,3,4',
-            'targetId' => 'required|string|in:1,2,3,4',
-        ]);
+        $validated = $request->validated();
 
         try {
-            $results = $this->translatorService->compareTranslations(
-                $request->input('text'),
-                $request->input('sourceId'),
-                $request->input('targetId')
+            $results = $this->translatorService->translate(
+                $validated['text'],
+                $validated['sourceId'],
+                $validated['targetId']
             );
 
             return response()->json([
                 'success' => true,
-                'results' => $results,
+
+                'results' => $results['results']  // resultsの中身を直接返す
             ]);
+
         } catch (\Exception $e) {
+
             return response()->json([
                 'success' => false,
-                'error' => $e->getMessage(),
+                'error' => $e->getMessage()
             ], 500);
         }
     }
