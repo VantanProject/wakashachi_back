@@ -38,40 +38,6 @@
                 "en": "{cooking_method} {ingredients} with {feature}",
                 "zh": "{feature}{ingredients}的{cooking_method}",
                 "ko": "{feature}한 {ingredients}의 {cooking_method}"
-            },
-            "with_taste": {
-                "ja": "{taste}な{ingredients}の{cooking_method}",
-                "en": "{taste} {cooking_method} {ingredients}",
-                "zh": "{taste}{ingredients}的{cooking_method}",
-                "ko": "{taste}한 {ingredients}의 {cooking_method}"
-            },
-            "with_cooking_style": {
-                "ja": "{cooking_style}で{cooking_method}した{ingredients}",
-                "en": "{cooking_style} {cooking_method} {ingredients}",
-                "zh": "{cooking_style}{cooking_method}的{ingredients}",
-                "ko": "{cooking_style}로 {cooking_method}한 {ingredients}"
-            },
-            "with_seasoning": {
-                "ja": "{seasoning}で味付けした{ingredients}の{cooking_method}",
-                "en": "{cooking_method} {ingredients} seasoned with {seasoning}",
-                "zh": "{seasoning}调味的{ingredients}{cooking_method}",
-                "ko": "{seasoning}으로 맛을 낸 {ingredients}의 {cooking_method}"
-            },
-            "taste_description": {
-                "basic": {
-                    "ja": "{taste}が特徴の",
-                    "en": "featuring {taste}",
-                    "zh": "以{taste}为特色",
-                    "ko": "{taste}이(가) 특징인"
-                }
-            },
-            "preparation_description": {
-                "basic": {
-                    "ja": "{method}で{time}かけて作る",
-                    "en": "{method} prepared over {time}",
-                    "zh": "经过{time}{method}制作",
-                    "ko": "{time}동안 {method}로 만든"
-                }
             }
         }
     },
@@ -100,29 +66,6 @@
                     }
                 }
             },
-            "鶏ガラ": {
-                "en": {
-                    "base": "chicken bone",
-                    "usage": {
-                        "スープ": "broth",
-                        "だし": "stock"
-                    }
-                },
-                "zh": {
-                    "base": "鸡骨",
-                    "usage": {
-                        "スープ": "汤",
-                        "だし": "高汤"
-                    }
-                },
-                "ko": {
-                    "base": "닭뼈",
-                    "usage": {
-                        "スープ": "수프",
-                        "だし": "육수"
-                    }
-                }
-            },
             "野菜": {
                 "en": {
                     "base": "vegetables",
@@ -146,104 +89,54 @@
                     }
                 }
             },
-            "牛肉": {
+            "鶏もも肉": {
                 "en": {
-                    "base": "beef",
+                    "base": "chicken thigh",
                     "modifiers": {
-                        "和牛": "wagyu",
-                        "赤身": "lean"
+                        "ジューシーな": "juicy",
+                        "柔らかい": "tender"
                     }
                 },
                 "zh": {
-                    "base": "牛肉",
+                    "base": "鸡腿肉",
                     "modifiers": {
-                        "和牛": "和牛",
-                        "赤身": "瘦肉"
+                        "ジューシーな": "多汁的",
+                        "柔らかい": "嫩滑的"
                     }
                 },
                 "ko": {
-                    "base": "소고기",
+                    "base": "닭다리살",
                     "modifiers": {
-                        "和牛": "와규",
-                        "赤身": "살코기"
+                        "ジューシーな": "즙이 많은",
+                        "柔らかい": "부드러운"
                     }
                 }
             },
-            "豚肉": {
+            "豚バラ肉": {
                 "en": {
-                    "base": "pork",
+                    "base": "pork belly",
                     "modifiers": {
-                        "三枚肉": "pork belly",
-                        "ロース": "loin"
+                        "とろける": "melt-in-your-mouth",
+                        "ジューシーな": "juicy"
                     }
                 },
                 "zh": {
-                    "base": "猪肉",
+                    "base": "五花肉",
                     "modifiers": {
-                        "三枚肉": "五花肉",
-                        "ロース": "里脊"
+                        "とろける": "入口即化",
+                        "ジューシーな": "多汁的"
                     }
                 },
                 "ko": {
-                    "base": "돼지고기",
+                    "base": "삼겹살",
                     "modifiers": {
-                        "三枚肉": "삼겹살",
-                        "ロース": "등심"
+                        "とろける": "녹을듯한",
+                        "ジューシーな": "즙이 많은"
                     }
                 }
             }
         },
         "cooking_methods": {
-            "合わせる": {
-                "en": {
-                    "base": "combine",
-                    "forms": {
-                        "合わせた": "combined with",
-                        "合わせて": "combining"
-                    },
-                    "context": {
-                        "味": "blend",
-                        "スープ": "mix"
-                    }
-                },
-                "zh": {
-                    "base": "调配",
-                    "forms": {
-                        "合わせた": "调配的",
-                        "合わせて": "一起"
-                    }
-                },
-                "ko": {
-                    "base": "섞다",
-                    "forms": {
-                        "合わせた": "섞은",
-                        "合わせて": "섞어서"
-                    }
-                }
-            },
-            "蒸す": {
-                "en": {
-                    "base": "steam",
-                    "forms": {
-                        "蒸した": "steamed",
-                        "蒸して": "steaming"
-                    }
-                },
-                "zh": {
-                    "base": "蒸",
-                    "forms": {
-                        "蒸した": "蒸的",
-                        "蒸して": "蒸"
-                    }
-                },
-                "ko": {
-                    "base": "찜",
-                    "forms": {
-                        "蒸した": "찐",
-                        "蒸して": "찜"
-                    }
-                }
-            },
             "炒める": {
                 "en": {
                     "base": "stir-fry",
@@ -289,841 +182,171 @@
                         "トロトロに": "부드럽게"
                     }
                 }
-            }
-        },
-        "textures": {
-            "モチモチ": {
-                "en": {
-                    "base": "chewy",
-                    "food_specific": {
-                        "麺": "springy",
-                        "お餅": "soft and chewy",
-                        "パン": "bouncy"
-                    }
-                },
-                "zh": {
-                    "base": "有嚼劲",
-                    "food_specific": {
-                        "麺": "弹牙",
-                        "お餅": "绵软",
-                        "パン": "柔韧"
-                    }
-                },
-                "ko": {
-                    "base": "쫄깃쫄깃",
-                    "food_specific": {
-                        "麺": "탱탱한",
-                        "お餅": "쫄깃한",
-                        "パン": "폭신폭신"
-                    }
-                }
             },
-            "パリパリ": {
+            "炙る": {
                 "en": {
-                    "base": "crispy",
-                    "food_specific": {
-                        "揚げ物": "crunchy",
-                        "野菜": "crisp",
-                        "皮": "crackling"
-                    }
-                },
-                "zh": {
-                    "base": "脆",
-                    "food_specific": {
-                        "揚げ物": "酥脆",
-                        "野菜": "爽脆",
-                        "皮": "酥皮"
-                    }
-                },
-                "ko": {
-                    "base": "바삭바삭",
-                    "food_specific": {
-                        "揚げ物": "바삭한",
-                        "野菜": "아삭한",
-                        "皮": "바삭한"
-                    }
-                }
-            }
-        },
-        "serving_methods": {
-            "盛り付け": {
-                "en": {
-                    "base": "presentation",
-                    "styles": {
-                        "丁寧に": "carefully arranged",
-                        "豪快に": "generously served"
-                    }
-                },
-                "zh": {
-                    "base": "摆盘",
-                    "styles": {
-                        "丁寧に": "精心摆盘",
-                        "豪快に": "大气摆盘"
-                    }
-                },
-                "ko": {
-                    "base": "플레이팅",
-                    "styles": {
-                        "丁寧に": "정성스럽게",
-                        "豪快に": "푸짐하게"
-                    }
-                }
-            },
-            "温度": {
-                "en": {
-                    "base": "temperature",
-                    "types": {
-                        "アツアツ": "piping hot",
-                        "冷製": "chilled"
-                    }
-                },
-                "zh": {
-                    "base": "温度",
-                    "types": {
-                        "アツアツ": "热气腾腾",
-                        "冷製": "冷制"
-                    }
-                },
-                "ko": {
-                    "base": "온도",
-                    "types": {
-                        "アツアツ": "뜨끈뜨끈",
-                        "冷製": "차가운"
-                    }
-                }
-            }
-        },
-        "seasonal": {
-            "季節": {
-                "en": {
-                    "spring": "spring",
-                    "summer": "summer",
-                    "autumn": "autumn",
-                    "winter": "winter",
+                    "base": "seared",
                     "modifiers": {
-                        "旬の": "seasonal",
-                        "限定": "limited time"
+                        "香ばしく": "fragrant",
+                        "軽く": "lightly"
                     }
                 },
                 "zh": {
-                    "spring": "春季",
-                    "summer": "夏季",
-                    "autumn": "秋季",
-                    "winter": "冬季",
+                    "base": "炙烤",
                     "modifiers": {
-                        "旬の": "当季",
-                        "限定": "限定"
+                        "香ばしく": "香",
+                        "軽く": "轻轻"
                     }
                 },
                 "ko": {
-                    "spring": "봄",
-                    "summer": "여름",
-                    "autumn": "가을",
-                    "winter": "겨울",
+                    "base": "구운",
                     "modifiers": {
-                        "旬の": "제철",
-                        "限定": "한정"
-                    }
-                }
-            }
-        },
-        "taste_profiles": {
-            "基本味": {
-                "en": {
-                    "base": "taste",
-                    "types": {
-                        "濃厚": "rich",
-                        "あっさり": "light",
-                        "コク": "deep flavor",
-                        "さっぱり": "refreshing",
-                        "酸っぱい": "sour",
-                        "苦い": "bitter"
-                    },
-                    "intensity": {
-                        "やや": "slightly",
-                        "とても": "very"
-                    }
-                },
-                "zh": {
-                    "base": "口味",
-                    "types": {
-                        "濃厚": "浓郁",
-                        "あっさり": "清淡",
-                        "コク": "醇厚",
-                        "さっぱり": "爽口",
-                        "酸っぱい": "酸",
-                        "苦い": "苦"
-                    },
-                    "intensity": {
-                        "やや": "略微",
-                        "とても": "非常"
-                    }
-                },
-                "ko": {
-                    "base": "맛",
-                    "types": {
-                        "濃厚": "진한",
-                        "あっさり": "담백한",
-                        "コク": "깊은 맛",
-                        "さっぱり": "깔끔한",
-                        "酸っぱい": "신",
-                        "苦い": "쓴"
-                    },
-                    "intensity": {
-                        "やや": "약간",
-                        "とても": "매우"
+                        "香ばしく": "향긋하게",
+                        "軽く": "살짝"
                     }
                 }
             },
-            "コク": {
+            "燻す": {
                 "en": {
-                    "base": "richness",
-                    "context": {
-                        "スープ": "rich flavor",
-                        "ソース": "deep flavor"
-                    }
-                },
-                "zh": {
-                    "base": "浓郁",
-                    "context": {
-                        "スープ": "浓厚",
-                        "ソース": "醇厚"
-                    }
-                },
-                "ko": {
-                    "base": "깊은 맛",
-                    "context": {
-                        "スープ": "진한 맛",
-                        "ソース": "깊은 맛"
-                    }
-                }
-            },
-            "辛さ": {
-                "en": {
-                    "base": "spiciness",
-                    "levels": {
-                        "ピリ辛": "mildly spicy",
-                        "中辛": "medium spicy",
-                        "大辛": "very spicy"
-                    }
-                },
-                "zh": {
-                    "base": "辣度",
-                    "levels": {
-                        "ピリ辛": "微辣",
-                        "中辛": "中辣",
-                        "大辛": "特辣"
-                    }
-                },
-                "ko": {
-                    "base": "매운맛",
-                    "levels": {
-                        "ピリ辛": "약간 매운",
-                        "中辛": "보통 매운",
-                        "大辛": "아주 매운"
-                    }
-                }
-            }
-        },
-        "dietary_info": {
-            "アレルギー": {
-                "en": {
-                    "base": "allergy",
-                    "contains": "contains {ingredient}",
-                    "free": "{ingredient} free",
-                    "common": {
-                        "小麦": "wheat",
-                        "卵": "eggs",
-                        "乳": "dairy",
-                        "えび": "shrimp",
-                        "かに": "crab"
-                    }
-                },
-                "zh": {
-                    "base": "过敏",
-                    "contains": "含有{ingredient}",
-                    "free": "不含{ingredient}",
-                    "common": {
-                        "小麦": "小麦",
-                        "卵": "鸡蛋",
-                        "乳": "乳制品",
-                        "えび": "虾",
-                        "かに": "蟹"
-                    }
-                },
-                "ko": {
-                    "base": "알레르기",
-                    "contains": "{ingredient} 포함",
-                    "free": "{ingredient} 미포함",
-                    "common": {
-                        "小麦": "밀",
-                        "卵": "계란",
-                        "乳": "유제품",
-                        "えび": "새우",
-                        "かに": "게"
-                    }
-                }
-            }
-        },
-        "quantity_price": {
-            "量": {
-                "en": {
-                    "base": "portion",
-                    "size": {
-                        "大": "large",
-                        "中": "regular",
-                        "小": "small"
-                    },
+                    "base": "smoked",
                     "modifiers": {
-                        "たっぷり": "generous",
-                        "控えめ": "moderate"
+                        "香ばしく": "aromatic",
+                        "じっくり": "slowly"
                     }
                 },
                 "zh": {
-                    "base": "份量",
-                    "size": {
-                        "大": "大",
-                        "中": "中",
-                        "小": "小"
-                    },
+                    "base": "熏制",
                     "modifiers": {
-                        "たっぷり": "丰盛",
-                        "控えめ": "适中"
+                        "香ばしく": "香",
+                        "じっくり": "慢慢"
                     }
                 },
                 "ko": {
-                    "base": "양",
-                    "size": {
-                        "大": "대",
-                        "中": "중",
-                        "小": "소"
-                    },
+                    "base": "훈제",
                     "modifiers": {
-                        "たっぷり": "푸짐한",
-                        "控えめ": "적당한"
-                    }
-                }
-            },
-            "価格帯": {
-                "en": {
-                    "base": "price range",
-                    "ranges": {
-                        "お手頃": "reasonable",
-                        "プレミアム": "premium"
-                    }
-                },
-                "zh": {
-                    "base": "价格",
-                    "ranges": {
-                        "お手頃": "实惠",
-                        "プレミアム": "高级"
-                    }
-                },
-                "ko": {
-                    "base": "가격대",
-                    "ranges": {
-                        "お手頃": "합리적인",
-                        "プレミアム": "프리미엄"
-                    }
-                }
-            }
-        },
-        "special_items": {
-            "ピリ辛カレールゥ": {
-                "en": "spicy curry roux",
-                "zh": "香辣咖喱汤底",
-                "ko": "매운 카레 루"
-            },
-            "極太麺": {
-                "en": "extra-thick noodles",
-                "zh": "特粗面条",
-                "ko": "굵은 면"
-            },
-            "カツ": {
-                "en": "cutlet",
-                "zh": "炸猪排",
-                "ko": "돈가스"
-            },
-            "天ぷら": {
-                "en": "tempura",
-                "zh": "天妇罗",
-                "ko": "튀김"
-            }
-        },
-        "menu_items": {
-            "天ぷら": {
-                "en": {
-                    "base": "tempura",
-                    "types": {
-                        "海老": "shrimp tempura",
-                        "野菜": "vegetable tempura",
-                        "盛り合わせ": "assorted tempura"
-                    }
-                },
-                "zh": {
-                    "base": "天妇罗",
-                    "types": {
-                        "海老": "虾天妇罗",
-                        "野菜": "蔬菜天妇罗",
-                        "盛り合わせ": "什锦天妇罗"
-                    }
-                },
-                "ko": {
-                    "base": "튀김",
-                    "types": {
-                        "海老": "새우튀김",
-                        "野菜": "야채튀김",
-                        "盛り合わせ": "모듬튀김"
-                    }
-                }
-            }
-        },
-        "seasonings": {
-            "醤油": {
-                "en": {
-                    "base": "soy sauce",
-                    "types": {
-                        "濃口": "dark soy sauce",
-                        "薄口": "light soy sauce",
-                        "溜り": "tamari soy sauce"
-                    }
-                },
-                "zh": {
-                    "base": "酱油",
-                    "types": {
-                        "濃口": "老抽",
-                        "薄口": "生抽",
-                        "溜り": "酱油"
-                    }
-                },
-                "ko": {
-                    "base": "간장",
-                    "types": {
-                        "濃口": "진간장",
-                        "薄口": "국간장",
-                        "溜り": "다마리 간장"
-                    }
-                }
-            }
-        },
-        "cooking_tools": {
-            "鍋": {
-                "en": {
-                    "base": "pot",
-                    "types": {
-                        "土鍋": "earthenware pot",
-                        "中華鍋": "wok",
-                        "圧力鍋": "pressure cooker"
-                    }
-                },
-                "zh": {
-                    "base": "锅",
-                    "types": {
-                        "土鍋": "砂锅",
-                        "中華鍋": "炒锅",
-                        "圧力鍋": "压力锅"
-                    }
-                },
-                "ko": {
-                    "base": "냄비",
-                    "types": {
-                        "土鍋": "뚝배기",
-                        "中華鍋": "웍",
-                        "圧力鍋": "압력솥"
-                    }
-                }
-            }
-        },
-        "soup_base": {
-            "和風だし": {
-                "en": {
-                    "base": "Japanese-style broth",
-                    "modifiers": {
-                        "風味豊かな": "flavorful"
-                    }
-                },
-                "zh": {
-                    "base": "和风高汤",
-                    "modifiers": {
-                        "風味豊かな": "风味浓郁的"
-                    }
-                },
-                "ko": {
-                    "base": "일본식 육수",
-                    "modifiers": {
-                        "風味豊かな": "풍미가 풍부한"
-                    }
-                }
-            },
-            "鶏ガラスープ": {
-                "zh": "原味鸡汤",
-                "en": "chicken bone soup",
-                "ko": "닭뼈 수프"
-            }
-        },
-        "texture": {
-            "モチモチ食感": {
-                "en": {
-                    "base": "chewy texture",
-                    "context": {
-                        "麺": "chewy noodles",
-                        "ご飯": "sticky rice"
-                    }
-                },
-                "zh": {
-                    "base": "有嚼劲",
-                    "context": {
-                        "麺": "弹牙的面条",
-                        "ご飯": "糯米饭"
-                    }
-                },
-                "ko": {
-                    "base": "쫄깃한 식감",
-                    "context": {
-                        "麺": "쫄깃한 면",
-                        "ご飯": "찰진 밥"
-                    }
-                }
-            },
-            "とろみのある": {
-                "en": {
-                    "base": "thick",
-                    "context": {
-                        "スープ": "rich",
-                        "ソース": "creamy"
-                    }
-                },
-                "zh": {
-                    "base": "浓稠",
-                    "context": {
-                        "スープ": "浓郁",
-                        "ソース": "稠厚"
-                    }
-                },
-                "ko": {
-                    "base": "걸쭉한",
-                    "context": {
-                        "スープ": "진한",
-                        "ソース": "걸쭉한"
+                        "香ばしく": "향긋하게",
+                        "じっくり": "천천히"
                     }
                 }
             }
         }
     },
-    "patterns": {
-        "description": {
-            "base_soup": {
-                "ja": "{ingredient}をベースに",
-                "en": "based on {ingredient}",
-                "zh": "以{ingredient}为底",
-                "variants": {
-                    "ja": [
-                        "{ingredient}をベースとした",
-                        "{ingredient}をベースにした"
-                    ],
-                    "en": [
-                        "made with {ingredient} base",
-                        "using {ingredient} as a base"
-                    ],
-                    "zh": [
-                        "以{ingredient}为基底",
-                        "用{ingredient}调制"
-                    ]
-                }
+    "menu_categories": {
+        "signature_curry_udon": {
+            "base": {
+                "ja": "カレーうどん",
+                "en": "Curry Udon",
+                "zh": "咖喱乌冬面",
+                "ko": "카레 우동"
             },
-            "feature_description": {
-                "ja": "{feature}が特長",
-                "en": "featuring {feature}",
-                "zh": "以{feature}为特色",
-                "variants": {
-                    "ja": [
-                        "{feature}が特徴",
-                        "{feature}が魅力"
-                    ],
-                    "en": [
-                        "characterized by {feature}",
-                        "known for {feature}"
-                    ],
-                    "zh": [
-                        "以{feature}著称",
-                        "{feature}是其特点"
-                    ]
-                }
-            },
-            "special_dish": {
-                "ja": "特製{ingredient}を使用した{cooking_method}",
-                "en": "special {cooking_method} using {ingredient}",
-                "zh": "使用特制{ingredient}的{cooking_method}",
-                "ko": "특제 {ingredient}를 사용한 {cooking_method}"
-            }
-        },
-        "new_dish": {
-            "ja": "新登場の{ingredient}を使った{cooking_method}",
-            "en": "newly introduced {cooking_method} with {ingredient}",
-            "zh": "新推出的{ingredient}的{cooking_method}",
-            "ko": "새로 나온 {ingredient}를 사용한 {cooking_method}",
-            "limited_time_offer": {
-                "ja": "期間限定の{ingredient}を使った{cooking_method}",
-                "en": "limited time {cooking_method} with {ingredient}",
-                "zh": "限时推出的{ingredient}的{cooking_method}",
-                "ko": "기간 한정 {ingredient}를 사용한 {cooking_method}"
-            }
-        },
-        "base_description": {
-            "をベースに": {
-                "zh": "以...为底",
-                "en": "based on",
-                "ko": "을 베이스로"
-            }
-        },
-        "feature_description": {
-            "が特長": {
-                "zh": "的特色是",
-                "en": "features",
-                "ko": "의 특징은"
+            "description": {
+                "ja": "独自に配合した数種類のスパイスと和風だしを組み合わせた、コク深くとろみのあるピリ辛ルゥが特徴",
+                "en": "Features a rich and thick spicy roux combining original spice blend with Japanese dashi",
+                "zh": "特色是使用独特配方的多种香料与和风高汤调制的浓郁辣咖喱",
+                "ko": "독자적으로 배합한 여러 스파이스와 일본식 다시를 조합한 깊은 맛의 매운 루가 특징"
             }
         }
     },
-    "modifiers": {
-        "intensity": {
-            "とても": {
-                "en": {
-                    "base": "very",
-                    "position": "before_adjective",
-                    "formal": "extremely",
-                    "casual": "really"
-                },
-                "zh": {
-                    "base": "很",
-                    "formal": "非常",
-                    "casual": "挺"
-                }
+    "toppings": {
+        "standard": {
+            "チーズ": {
+                "en": "cheese",
+                "zh": "奶酪",
+                "ko": "치즈"
+            },
+            "揚げなす": {
+                "en": "deep-fried eggplant",
+                "zh": "炸茄子",
+                "ko": "가지튀김"
+            },
+            "野菜天ぷら": {
+                "en": "vegetable tempura",
+                "zh": "蔬菜天妇罗",
+                "ko": "야채튀김"
             }
         },
-        "quality": {
-            "秘伝の": {
-                "en": "secret",
-                "zh": "秘制",
-                "ko": "비법"
-            },
-            "特製": {
-                "en": "special",
-                "zh": "特制",
-                "ko": "특제"
-            },
-            "手作り": {
-                "en": "homemade",
-                "zh": "手工制作",
-                "ko": "수제"
-            },
-            "新鮮な": {
-                "en": "fresh",
-                "zh": "新鲜",
-                "ko": "신선한"
-            },
-            "風味豊かな": {
-                "en": "flavorful",
-                "zh": "风味浓郁的",
-                "ko": "풍미가 풍부한"
-            }
-        },
-        "texture": {
-            "やわらかい": {
-                "en": "tender",
-                "zh": "嫩",
-                "ko": "부드러운"
-            },
-            "カリカリ": {
-                "en": "crispy",
-                "zh": "酥脆",
-                "ko": "바삭바삭"
-            }
-        },
-        "temperature": {
-            "熱々": {
-                "en": "piping hot",
-                "zh": "热腾腾",
-                "ko": "뜨끈뜨끈"
-            },
-            "冷たい": {
-                "en": "cold",
-                "zh": "冰凉",
-                "ko": "차가운"
+        "premium": {
+            "大えび天ぷら": {
+                "en": "large shrimp tempura",
+                "zh": "大虾天妇罗",
+                "ko": "대하튀김"
             }
         }
     },
-    "sentence_endings": {
-        "polite_description": {
-            "お作りしています": {
-                "en": {
-                    "base": "we prepare",
-                    "variants": [
-                        "we make",
-                        "we serve"
-                    ],
-                    "style": {
-                        "formal": "we carefully prepare",
-                        "casual": "we make"
-                    }
-                },
-                "zh": {
-                    "base": "制作",
-                    "style": {
-                        "formal": "精心制作",
-                        "casual": "为您准备"
-                    }
-                }
+    "side_dishes": {
+        "名古屋名物": {
+            "味噌串カツ": {
+                "en": "miso-glazed kushikatsu",
+                "zh": "味噌串炸",
+                "ko": "미소 꼬치카츠"
+            },
+            "手羽先": {
+                "en": "chicken wings",
+                "zh": "鸡翅",
+                "ko": "닭날개"
             }
         }
     },
-    "base_words": {
-        "ingredients": {
-            "魚": {
-                "en": "fish",
-                "zh": "鱼",
-                "ko": "생선"
-            },
-            "肉": {
-                "en": "meat",
-                "zh": "肉",
-                "ko": "고기"
-            },
-            "野菜": {
-                "en": "vegetable",
-                "zh": "蔬菜",
-                "ko": "채소"
-            }
+    "special_items": {
+        "ピリ辛カレールゥ": {
+            "en": "spicy curry roux",
+            "zh": "香辣咖喱汤底",
+            "ko": "매운 카레 루"
         },
-        "cooking_methods": {
-            "煮る": {
-                "en": "boil",
-                "zh": "煮",
-                "ko": "삶다"
-            },
-            "焼く": {
-                "en": "grill",
-                "zh": "烤",
-                "ko": "굽다"
-            },
-            "炒める": {
-                "en": "stir-fry",
-                "zh": "炒",
-                "ko": "볶다"
-            }
+        "極太麺": {
+            "en": "extra-thick noodles",
+            "zh": "特粗面条",
+            "ko": "굵은 면"
         },
-        "tastes": {
-            "辛い": {
-                "en": "spicy",
-                "zh": "辣",
-                "ko": "매운"
-            },
-            "甘い": {
-                "en": "sweet",
-                "zh": "甜",
-                "ko": "달콤한"
-            },
-            "塩味": {
-                "en": "salty",
-                "zh": "咸",
-                "ko": "짭짤한"
-            }
-        }
-    },
-    "common_patterns": {
-        "with_sauce": {
-            "ja": "{sauce}ソース",
-            "en": "with {sauce} sauce",
-            "zh": "{sauce}酱",
-            "ko": "{sauce} 소스"
+        "カツ": {
+            "en": "cutlet",
+            "zh": "炸猪排",
+            "ko": "돈가스"
         },
-        "served_with": {
-            "ja": "{item}添え",
-            "en": "served with {item}",
-            "zh": "配{item}",
-            "ko": "{item} 곁들임"
-        }
-    },
-    "units": {
-        "pieces": {
-            "個": {
-                "en": "piece",
-                "zh": "个",
-                "ko": "개"
-            },
-            "枚": {
-                "en": "slice",
-                "zh": "片",
-                "ko": "장"
-            }
+        "天ぷら": {
+            "en": "tempura",
+            "zh": "天妇罗",
+            "ko": "튀김"
         },
-        "amount": {
-            "たっぷり": {
-                "en": "plenty of",
-                "zh": "满满的",
-                "ko": "듬뿍"
-            },
-            "少々": {
-                "en": "a pinch of",
-                "zh": "少许",
-                "ko": "약간"
-            }
-        }
-    },
-    "endings": {
-        "です": {
-            "en": "",
-            "zh": "",
-            "ko": "입니다"
+        "温玉": {
+            "en": "soft-boiled egg",
+            "zh": "温泉蛋",
+            "ko": "반숙 계란"
         },
-        "ます": {
-            "en": "",
-            "zh": "",
-            "ko": "ㅂ니다"
-        }
-    },
-    "sentence_patterns": {
-        "menu_description": {
-            "が特長": {
-                "en": "features",
-                "zh": "的特色是",
-                "ko": "의 특징은"
-            },
-            "をベースに": {
-                "en": "based on",
-                "zh": "以...为底",
-                "ko": "을 베이스로"
-            }
+        "明太子": {
+            "en": "spicy cod roe",
+            "zh": "明太子",
+            "ko": "명란젓"
         },
-        "ordering": {
-            "お店でご注文いただいてから、一杯一杯丹精込めてお作りしています": {
-                "en": "Each bowl is carefully prepared after you place your order",
-                "zh": "每一碗都是在您下单后精心为您烹制",
-                "ko": "주문하신 후 한 그릇 한 그릇 정성껏 만들어 드립니다"
-            }
+        "バター": {
+            "en": "butter",
+            "zh": "黄油",
+            "ko": "버터"
         },
-        "preparation_description": {
-            "丹精込めて": {
-                "en": "with great care",
-                "zh": "精心",
-                "ko": "정성껏"
-            },
-            "一つ一つ": {
-                "en": "each and every",
-                "zh": "每一个",
-                "ko": "하나하나"
-            }
+        "唐揚げ": {
+            "en": "Japanese fried chicken",
+            "zh": "日式炸鸡",
+            "ko": "가라아게"
         },
-        "menu_highlights": {
-            "当店自慢の": {
-                "en": "our specialty",
-                "zh": "本店招牌",
-                "ko": "저희 가게 자랑의"
-            },
-            "人気の": {
-                "en": "popular",
-                "zh": "人气",
-                "ko": "인기"
-            }
+        "小鉢": {
+            "en": "small side dish",
+            "zh": "小碟菜",
+            "ko": "작은 반찬"
+        },
+        "ガーリック風味": {
+            "en": "garlic-flavored",
+            "zh": "蒜香",
+            "ko": "마늘향"
+        },
+        "スパイシー": {
+            "en": "spicy",
+            "zh": "辛辣",
+            "ko": "매운"
+        },
+        "クリーミー": {
+            "en": "creamy",
+            "zh": "奶油质地",
+            "ko": "크리미한"
         }
     }
 }
