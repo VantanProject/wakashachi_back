@@ -54,6 +54,7 @@ class MerchController extends Controller
                             ->where('language_id', 1)
                             ->first()
                             ->name,
+                        'url' => $merch->img_url,
                         'allergyNames' => $merch->allergies->pluck('name')->toArray(),
                         'price' => $merch->price,
                         'updatedAt' => Carbon::parse($merch->updated_at)->format('Y年m月d日'),
