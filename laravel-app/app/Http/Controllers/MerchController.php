@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MerchStoreRequest;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class MerchController extends Controller
 {
@@ -58,6 +59,12 @@ class MerchController extends Controller
                         'allergyNames' => $merch->allergies->pluck('name')->toArray(),
                         'price' => $merch->price,
                         'updatedAt' => Carbon::parse($merch->updated_at)->format('Y年m月d日'),
+                        'translations' => $merch->merchTranslations->map(function ($translation) {
+                            return [
+                                'name' => $translation->name,
+                                'languageId' => $translation->language_id,
+                            ];
+                        })
                     ];
                 }),
                 'ids' => $merchIds,
