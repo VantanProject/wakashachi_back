@@ -10,8 +10,6 @@ use App\Http\Controllers\TranslationController;
 
 Route::post('/login', [AuthController::class, 'index']);
 
-Route::post('/compare-translations', [TranslationController::class, 'compareTranslations']);
-
 Route::middleware("auth:sanctum")->group(function () {
     Route::get('/token', function (Request $request) {
         return response()->json([
@@ -39,6 +37,5 @@ Route::middleware("auth:sanctum")->group(function () {
         ]);
     });
 
-
-
+    Route::get('/compare-translations', [TranslationController::class, 'compareTranslation']);
 });
