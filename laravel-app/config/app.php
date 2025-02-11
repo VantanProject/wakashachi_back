@@ -123,4 +123,8 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'google_script_url' => env('GOOGLE_SCRIPT_URL'),
+    'deepl_api_url' => env('DEEPL_API_URL'),
+    'deepl_api_key' => env('DEEPL_API_KEY'),
+
 ];
