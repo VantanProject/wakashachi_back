@@ -44,7 +44,6 @@ class MenuController extends Controller
         $user = Auth::user();
         $showdMenu = Menu::find($id);
 
-
         $menu = [
             'name' => $showdMenu->name,
             'color' => $showdMenu->color,
@@ -55,7 +54,20 @@ class MenuController extends Controller
                         if ($item->type === 'merch') {
                             return [
                                 'type' => $item->type,
-                                'merchId' => $item->menuItemMerch->merch_id,
+                                'imageUrl' => $item->menuItemMerch->merch->img_url,
+                                'translations' => $item->menuItemMerch
+                                    ->merch
+                                    ->merchTranslations
+                                    ->map(fn ($translation) => [
+                                        "languageId" => $translation->language_id,
+                                        "name" => $translation->name
+                                    ]),
+                                'allergyNames' => $item->menuItemMerch
+                                    ->merch
+                                    ->allergies
+                                    ->pluck('name')
+                                    ->toArray(),
+                                'price' => $item->menuItemMerch->merch->price,
                                 'width' => $item->width,
                                 'height' => $item->height,
                                 'top' => $item->top,

@@ -9,6 +9,8 @@ use App\Models\Allergy;
 
 Route::post('/login', [AuthController::class, 'index']);
 
+Route::get('/menu/{id}', [MenuController::class, 'show']);
+
 Route::middleware("auth:sanctum")->group(function () {
     Route::get('/token', function (Request $request) {
         return response()->json([
@@ -20,7 +22,7 @@ Route::middleware("auth:sanctum")->group(function () {
     Route::apiResource('merch', MerchController::class)->except(['destrory']);
     Route::delete('merch', [MerchController::class, 'destrory']);
 
-    Route::apiResource('menu', MenuController::class)->except(['destrory']);
+    Route::apiResource('menu', MenuController::class)->except(['destrory', 'show']);
     Route::delete('menu', [MenuController::class,'destrory']);
 
     Route::get("/allergy/select", function() {
