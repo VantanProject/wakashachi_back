@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class CompareTranslationRequest extends FormRequest
 {
@@ -15,8 +17,8 @@ class CompareTranslationRequest extends FormRequest
     {
         return [
             'text' => 'required|string',
-            'sourceId' => 'required|string|in:1,2,3,4',
-            'targetId' => 'required|string|in:1,2,3,4'
+            'sourceId' => 'required|integer|in:1,2,3,4',
+            'targetId' => 'required|integer|in:1,2,3,4'
         ];
     }
 
@@ -29,5 +31,17 @@ class CompareTranslationRequest extends FormRequest
             'sourceId.in' => '対応していない言語です',
             'targetId.in' => '対応していない言語です'
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            response()->json([
+                'success' => false,
+                'errors' => collect($validator->errors()->messages())
+                    ->flatten()
+                    ->toArray()
+            ], 422)
+        );
     }
 }

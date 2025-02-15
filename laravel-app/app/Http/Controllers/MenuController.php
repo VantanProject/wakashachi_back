@@ -15,7 +15,7 @@ class MenuController extends Controller
     {
         $user = Auth::user();
         $companyId = $user->company_id;
-        $queryMenu = Menu::where('company_id', $companyId);
+        $queryMenu = Menu::where('company_id', $companyId)->orderBy('updated_at', 'desc');
         $params = $request["search"];
         if ($params["name"]) {
             $queryMenu->where('name', 'like', '%' . $params['name'] . '%');
@@ -151,13 +151,13 @@ class MenuController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'メニューの追加に失敗しました',
+                'messages' => ['メニューの追加に失敗しました'],
             ]);
         }
 
         return response()->json([
             'success' => true,
-            'message' => 'メニューが正常に追加されました！',
+            'messages' => ['メニューが正常に追加されました！'],
         ]);
     }
 

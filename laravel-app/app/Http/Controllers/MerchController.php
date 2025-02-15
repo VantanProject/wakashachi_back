@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MerchStoreRequest;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 
 class MerchController extends Controller
 {
@@ -17,7 +16,9 @@ class MerchController extends Controller
     {
         $user = Auth::user();
         $companyId = $user->company_id;
-        $queryMerch = Merch::where('company_id', $companyId)->with(['merchTranslations', 'allergies']);
+        $queryMerch = Merch::where('company_id', $companyId)
+            ->with(['merchTranslations', 'allergies'])
+            ->orderBy('updated_at', 'desc');
 
         $params = $request["search"];
 
@@ -134,13 +135,13 @@ class MerchController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => '商品の追加に失敗しました',
+                'messages' => ['商品の追加に失敗しました'],
             ]);
         }
 
         return response()->json([
             'success' => true,
-            'message' => '商品の追加に成功しました',
+            'messages' => ['商品の追加に成功しました'],
         ]);
     }
 

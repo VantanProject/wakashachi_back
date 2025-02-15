@@ -39,5 +39,5 @@ Route::middleware("auth:sanctum")->group(function () {
         ]);
     });
 
-    Route::get('/compare-translations', [TranslationController::class, 'compareTranslation']);
+    Route::post('/compare-translation', [TranslationController::class, 'compareTranslation']);
 });

@@ -56,7 +56,7 @@ class MerchStoreRequest extends FormRequest
         throw new HttpResponseException(
             response()->json([
                 'success' => false,
-                'errors' => collect($validator->errors()->messages())
+                'messages' => collect($validator->errors()->messages())
                     ->flatten()
                     ->toArray()
             ], 422)

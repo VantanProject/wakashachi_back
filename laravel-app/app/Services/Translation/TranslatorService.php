@@ -15,10 +15,10 @@ class TranslatorService
      * 言語コード
      */
     private const LANGUAGE_CODES = [
-        '1' => ['deepl' => 'JA', 'google' => 'ja'],
-        '2' => ['deepl' => 'EN', 'google' => 'en'],
-        '3' => ['deepl' => 'ZH', 'google' => 'zh'],
-        '4' => ['deepl' => 'KO', 'google' => 'ko']
+        1 => ['deepl' => 'JA', 'google' => 'ja'],
+        2 => ['deepl' => 'EN', 'google' => 'en'],
+        3 => ['deepl' => 'ZH', 'google' => 'zh'],
+        4 => ['deepl' => 'KO', 'google' => 'ko']
     ];
 
     public function __construct(
@@ -77,7 +77,7 @@ class TranslatorService
      * メニューとか、トッピングとか、カテゴリーごとに
      * 辞書の内容を適用していきます
      */
-    private function applyDictionary(string $text, string $target): string
+    private function applyDictionary(string $text, int $target): string
     {
         $dictionary = $this->loadDictionary();
         $targetLang = strtolower(self::LANGUAGE_CODES[$target]['google']);
@@ -152,23 +152,17 @@ class TranslatorService
             'deepl' => $this->evaluationService->calculateFinalScore($text, $backTranslations['deepl'], $target)
         ];
 
-        // スコアが高い方を採用
-        $recommendedTranslation = $scores['deepl']['totalScore'] > $scores['google']['totalScore']
-            ? $translations['deepl']
-            : $translations['google'];
-
         return [
             'google' => [
                 'translation' => $translations['google'],
                 'backTranslation' => $backTranslations['google'],
-                'totalScore' => $scores['google']['totalScore']
+                'totalScore' => round($scores['google']['totalScore'])
             ],
             'deepl' => [
                 'translation' => $translations['deepl'],
                 'backTranslation' => $backTranslations['deepl'],
-                'totalScore' => $scores['deepl']['totalScore']
+                'totalScore' => round($scores['deepl']['totalScore'])
             ],
-            'recommended' => $recommendedTranslation
         ];
     }
 }
