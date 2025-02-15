@@ -6,8 +6,11 @@ use App\Http\Controllers\MerchController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AuthController;
 use App\Models\Allergy;
+use App\Http\Controllers\TranslationController;
 
 Route::post('/login', [AuthController::class, 'index']);
+
+Route::get('/menu/{id}', [MenuController::class, 'show']);
 
 Route::middleware("auth:sanctum")->group(function () {
     Route::get('/token', function (Request $request) {
@@ -20,7 +23,7 @@ Route::middleware("auth:sanctum")->group(function () {
     Route::apiResource('merch', MerchController::class)->except(['destrory']);
     Route::delete('merch', [MerchController::class, 'destrory']);
 
-    Route::apiResource('menu', MenuController::class)->except(['destrory']);
+    Route::apiResource('menu', MenuController::class)->except(['destrory', 'show']);
     Route::delete('menu', [MenuController::class,'destrory']);
 
     Route::get("/allergy/select", function() {
@@ -35,4 +38,6 @@ Route::middleware("auth:sanctum")->group(function () {
             "allergies" => $allergies,
         ]);
     });
+
+    Route::post('/compare-translation', [TranslationController::class, 'compareTranslation']);
 });

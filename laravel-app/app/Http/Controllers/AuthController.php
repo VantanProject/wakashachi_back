@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function index(AuthRequest $request) 
+    public function index(AuthRequest $request)
     {
         $validatedData = $request->validated();
 
@@ -20,7 +20,10 @@ class AuthController extends Controller
                 'success' => true,
             ], 200);
         }else{
-            return response()->noContent(401);
+            return response()->json([
+                'success' => false,
+                'messages' => ["メールアドレスまたはパスワードが間違っています"]
+            ]);
         }
     }
 }

@@ -4,4 +4,4 @@ services:
     volumes:
       - ./laravel-app:/laravel-app
     ports:
-      - 8004:8000
+      - 8082:8000

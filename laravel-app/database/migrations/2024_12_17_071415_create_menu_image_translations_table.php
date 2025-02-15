@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('menu_image_translations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('menu_page_id');
+            $table->unsignedBigInteger('menu_id');
+            $table->unsignedInteger('count');
             $table->unsignedBigInteger('language_id');
-            $table->string('img_url');
+            $table->string('image_url');
             $table->timestamps();
         });
     }

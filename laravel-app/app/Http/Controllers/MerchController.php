@@ -16,7 +16,9 @@ class MerchController extends Controller
     {
         $user = Auth::user();
         $companyId = $user->company_id;
-        $queryMerch = Merch::where('company_id', $companyId)->with(['merchTranslations', 'allergies']);
+        $queryMerch = Merch::where('company_id', $companyId)
+            ->with(['merchTranslations', 'allergies'])
+            ->orderBy('updated_at', 'desc');
 
         $params = $request["search"];
 
@@ -54,15 +56,51 @@ class MerchController extends Controller
                             ->where('language_id', 1)
                             ->first()
                             ->name,
+                        'url' => $merch->img_url,
                         'allergyNames' => $merch->allergies->pluck('name')->toArray(),
                         'price' => $merch->price,
                         'updatedAt' => Carbon::parse($merch->updated_at)->format('Y年m月d日'),
+                        'translations' => $merch->merchTranslations->map(function ($translation) {
+                            return [
+                                'name' => $translation->name,
+                                'languageId' => $translation->language_id,
+                            ];
+                        })
                     ];
                 }),
                 'ids' => $merchIds,
                 'lastPage' => $merches->lastPage(),
             ]
         );
+    }
+
+    public function show($id)
+    {
+        $user = Auth::user();
+        $merch = Merch::with(['merchTranslations', 'allergies'])
+        ->where('company_id', $user->company_id)
+        ->findOrFail($id);
+
+        return response()->json([
+            'success' => true,
+            'merch' => [
+                'translations' => $merch->merchTranslations->map(function ($translation) {
+                    return [
+                        'name' => $translation->name,
+                        'languageId' => $translation->language_id,
+                    ];
+                }),
+                'allergyIds' => $merch->allergies()->pluck('allergy_id')->toArray(),
+                /**
+                 * Retrieves the image URL for the given merchandise item.
+                 *
+                 * @param string $merch->img_url The URL of the merchandise item's image.
+                 * @return string The retrieved image URL.
+                 */
+                'imgUrl' => $merch->img_url,
+                'price' => $merch->price,
+            ],
+        ]);
     }
 
     public function store(MerchStoreRequest $request)
@@ -97,13 +135,13 @@ class MerchController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => '商品の追加に失敗しました',
+                'messages' => ['商品の追加に失敗しました'],
             ]);
         }
 
         return response()->json([
             'success' => true,
-            'message' => '商品の追加に成功しました',
+            'messages' => ['商品の追加に成功しました'],
         ]);
     }
 
