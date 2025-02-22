@@ -1,7 +1,7 @@
 services:
-  laravel:
+  api:
     build: ./
     volumes:
-      - ./laravel-app:/laravel-app
+      - .:/back
     ports:
       - 8082:8000
